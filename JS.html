@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+	<html lang="en">
+	<head>
+
+		<meta charset="UTF-8">
+		<title>事件屬性 Event Attribute</title>
+		<!-- script元素在head元素內 load()函數執行呼叫window.alert()函數 跳出警告視窗與顯示Hi javascript訊息 按下確認鍵後關閉-->
+		<script type="text/javascript"> 
+			function load(){
+				window.alert("Hi javascript");
+			}
+		</script>
+		<!-- 當使用者瀏覽網頁時會觸發一系列動作，HTML提供這些觸發事件的名稱，可針對此事件使用JS設計一段腳本Script HTML有一元素<script>跟<noscript> 供事件屬性使用 -->
+		<!-- 事件屬性類別 -->
+		<!-- 鍵盤事件 Keyboard Events Attributes -->
+		<!-- 滑鼠事件 Mouse Events Attributes -->
+		<!-- 拖曳事件 Drag Events Attributes -->
+		<!-- 剪貼簿事件 Clipboard Events Attributes -->
+		<!-- 媒體事件 Media Events Attributes-->
+		<!-- 其他事件 Misc Events Attributes -->
+	</head>
+	<!-- 視窗事件 Windows Event Attributes 主要用在<body>元素 -->
+	<body onload="load()"> <!-- 當網頁載入時會觸發onload事件，然會執行load()函數 -->
+
+		<noscript>
+			瀏覽器不支援script將顯示這段文字
+		</noscript>
+		<p>Hello!!</p>
+		<!-- 表單事件 Form Events Attributes 幾乎所有HTML元素皆可使用，常在<form>元素內看到 -->
+		<form>
+			
+		</form>
+	</body>
+	</html>	

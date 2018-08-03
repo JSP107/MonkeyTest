@@ -5,10 +5,90 @@
 		<title>Document</title>
 	</head>
 	<body>
+		<p>progress<progress value="" max="100"></progress></p>
+		
+		<p>test<progress value="30" max="100"></progress></p>
 
-		Hello World
-		gggg
+		<p>meter<meter value="75" max="100">75%</meter></p>
 
+		<p>test<meter value="75" max="100" min="0" high="85" low="60">75%</meter></p>
 
+		<select name="框架名稱">
+			<option value="選單1">Apple</option>
+			<option value="選單2">Banana</option>
+			<option value="選單3" selected>Car</option>
+		</select>
+
+		<select name="選項方塊" multiple size="5">
+			<option value="ＨＴＣ">宏達電</option>
+			<option value="ＣＨＴ">中華電</option>
+			<option value="ＴＷＭ" selected>台灣大哥大</option>
+		</select>
+		
+		<br>
+		<p>最愛旅遊的亞洲國家與地區(可複選）</p>
+		<select name="ASIA" multiple> <!-- multiple複選 -->
+		<optgroup label="Taiwan">
+			<option label="Taipei">台北</option>
+			<option label="New Taipei">新北</option>
+			<option label="Taiyuan">桃園</option>
+		</optgroup>
+		<optgroup label="Japan">
+			<option label="Tokyo" selected>東京</option> <!-- selected 預選 -->
+			<option label="Tokyo2" selected></option> <!-- 省略字串東京，仍可顯示，證明option元素內容是當瀏覽器不支援時備用 -->
+			<option label="Osaka">大阪</option>
+			<option label="">大阪</option>
+			<!-- 當省略option內label內容時，會option以元素內容取代 -->
+			<option label="Kobe">Kobe城</option>
+			<!-- label屬性內容較option元素內容有優先顯示 -->
+		</optgroup>
+		</select>
+
+		<br>
+		<p>製作文字框的候補選項 datalist 或 option </p>
+		<p>輸入身份</p>
+		<input type="text" name="輸入框" list="role"> 
+		<datalist id="role">	<!-- 這邊的id="role"與上面的list="role"要相同才能關聯 -->
+			<option value="teacher">教師</option>
+			<option value="student">學生</option>
+			<option value="graduate">校友</option>
+		</datalist>
+
+		<br>
+		<fieldset> <!-- 有一個外框包住 -->
+			<legend>會員資料表</legend>
+			<p>
+				<label>姓名：</label><input type="text" name="user" required=""></label>
+				<label>生日：</label><input type="month" name="mon"></label>
+			</p>
+			<p>
+				<label>性別：</label>
+					<input type="radio" name="sex" value="1" id="M">
+					<label for="M">男</label>
+					<input type="radio" name="sex" value="0" id="F">
+					<label for="F">女</label>
+			</p>
+			<p><label>電話：<input type="tel" name="phone"></label></p>
+			<p><label>Email：<input type="email" name="mail"></label></p>
+			</p>
+			<p>
+				<input type="submit" value="確認"><tr>
+				<input type="reset" value="取消">
+			</p>
+		</fieldset>
+
+		<br>
+		<p>加密金鑰操作</p>
+		<p>
+			姓名：<input type="text" name="user">
+			金鑰：<keygen keytype="rsa" name="security">
+				<select name="keytype">
+					<option label="高等級" selected=""></option>
+					<option label="中等級"></option>
+					<option label="低等級"></option>
+				</select>
+				<input type="submit">
+		</p>
 	</body>
 	</html>	
+

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>HTML CH10</title>
+</head>
+<body>
+	<p>姓名</p><input type="text" name="user">
+	<input type="submit" name="送出" accesskey="e">
+	<!-- 網頁上同時按下Alt+e，焦點就會轉移到submit button -->
+	<br>
+	<!-- 設定元素內容能否編輯 -->
+	<p contenteditable="true">哈囉，可更改內容</p>
+	<p contenteditable="false">這個你就不能變更了，傻瓜</p>
+
+	<!-- 按一下滑鼠右鍵出現快顯功能表 目前僅firefox支援-->
+	<p contextmenu="true">火狐支援</p>
+
+	<!-- 提供可自行定義資料，常被用在JavaScript中，使用上"*"必須是小寫字母，可以是任何長度 -->
+	<ul>
+		<li data-continent-loc="Europe">French</li>
+		<li data-continent-loc="Asia">China</li>
+		<li data-continent-loc="Africa">Egypt</li>
+	</ul>
+
+	<!-- dir 設定文字方向 -->
+	<p dir="ltr">左到右，預設值</p>
+	<p dir="rtl">注意！右到左</p>
+
+	<!-- hidden boolean屬性 若元素包含此屬性，會被隱藏 可使用JS更改元素的hidden屬性設定-->
+	<p>不包含hidden屬性<p>
+	<p hidden>包含hidden當然看不到<p>
+	<P hidden="false">中間有個元素有hidden</P>
+	
+	<br>
+	<!-- 設定對元素內容進行拼字或語法檢查，應用於下列三種元素，1. Input 元素的本文內容 2. <textarea> 元素的內容 3. 可編輯的元素內容區 -->
+	<textarea lang="en" spellcheck="true" rows="5" cols="10" title=" title >>>定義元素額外訊息，滑鼠游標移過時會顯示">
+	可輸入英文，進行拼字與語法錯誤檢查
+	</textarea>
+
+	<!-- 設定按下tab鍵時，焦點移動順序 -->
+	<h2>Welcome to Taiwan</h2>
+	<p>Account:<input type="text" name="user" tabindex="2"></p>
+	<p>Password:<input type="Password" name="pwd" tabindex="3"></p>
+	<p><input type="submit" name="確認" tabindex="4"></p>
+	<p><input type="reset" name="取消" tabindex="1" autofocus> <!-- 當網頁載入，焦點會在這 按下tab鍵切換焦點 順序會照1 2 3 4-->
+
+</body>
+</html>
