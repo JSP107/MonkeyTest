@@ -1,0 +1,142 @@
+CH26 JavaScript 的流程控制
+判斷(decision) 	例如if switch...
+迴圈(loop) 		例如while for do
+
+26-1 if 敘述
+
+26-1-1 if敘述 
+if(condition){
+	系列 statements;
+}
+
+如果condition是true 則執行系列staements，只有一到指令可省略大括號
+if(condition) statement;
+>>>ch26_1.html Ref 10 15-17
+
+26-1-2 if...else敘述
+if(condition){
+	A系列 statements; //condition是true執行
+}else{
+	B系列 statements; //condition是false執行
+}
+>>>ch26_2.html
+
+26-1-3 if...elseif...else敘述
+if(condition1){
+	A系列 statements; //condition1是true執行
+}elseif(condition2){
+	B系列 statements; //condition2是true執行
+}else{
+	C系列 statements; //condition1和2皆是false執行
+}
+>>>ch26_3.html Ref 14行 獲取時間hour資訊 注意new 不可省略這是一個宣告物件變數
+
+26-1-4 判斷條件可以延伸
+if(condition1){
+	A系列 statements; //condition1是true執行
+}elseif(condition2){
+	B系列 statements; //condition2是true執行
+}
+
+.... //可在此新增判斷條件 很多elseif的意思 condition(n)
+
+else{
+	C系列 statements; //當所有condition皆是false執行
+}
+
+26-2 switch 敘述
+switch (expression){
+	case valueA:
+		A系列 statements;
+		break;
+	case valueB:
+		B系列 statements;
+		break;
+...
+...
+dedault:
+		其他系列statements;
+}
+執行時會由上往下找尋符合條件的case 找到時JS會執行與該case有關的statements，直到碰上break或switch敘述的結束符號才會結束switch敘述，當上述條件的case都不符合，執行default底下的敘述
+>>>ch26_4.html Ref 13 ch26_5.html Ref 9 10
+
+window.prompt(a,b)函數 可輸入兩個參數a,b 第一個參數是顯示在對話方塊的訊息 第二個參數是輸入欄位預設的輸入值，須留意我們在此欄位所輸入的資料是 字串資料 所以程式第十行 增加了Number()函數 將字串資料轉換成數值資料
+
+26-3 for 敘述
+迴圈敘述
+for (statement1; statement2; statement3;){
+	系列statement;
+}
+
+(一般設定敘述)statement1： 	設定迴圈敘述指標
+(關係運算式)statement2：		測試是否要離開迴圈
+(一般設定敘述)statement3：		更新迴圈敘述只錶
+>>>ch26_6.html
+
+26-4 while 敘述
+迴圈敘述
+while (condition) {
+	系列statement;
+}
+如果condition 是true 迴圈繼續 false 結束
+
+＝＝＝＝＝＝＝＝＝＝＝＝while迴圈可以執行與for敘述相同的功能
+statement1;
+while (condition){
+	系列statements;
+}
+>>>ch26_7.html
+
+26-5 do...while 敘述
+迴圈敘述
+do{
+	系列statements;
+}while (condition);
+
+與while最大差別在，先執行迴圈內容，然後在執行condition 如果是true繼續 false結束
+>>>ch26_8.html
+
+26-6 特殊運算式
+if...else敘述中常看到
+if(a>b){
+	c=a;
+}else{
+	c=b;
+}
+==============================
+JS 提供一種特殊運算式，簡化上面敘述
+e1 ? e2 : e3;
+若e1為true 則執行e2 否則執行e3
+c = (a>b) ? a : b;
+>>>ch26_9.html
+
+26-7 陣列 array
+一種結構化的資料結構，主要是將相同型態的資料集合起來，用一個變數名稱代表，未來可用索引方式存取陣列內資料
+建立陣列語法如下
+var arrayName = {data1, data2, ... data(n)};
+陣列宣告方式
+var numlist ={8, 7, 9}
+陣列名稱 numlist 共三筆資料 
+numlist[0] = 8;
+numlist[1] = 7;
+numlist[2] = 9;
+>>>ch26_10.html Ref 10-15 ch26_11.html 
+
+26-7-1 Array的方法
+JS有許多內建方法(method)，增強處理資料能力，其中一個是排序，可使用內建的sort()方法獲得小到大的結果
+>>>ch26_12.html Ref 11
+
+26-7-2 Array的屬性
+length是Array的長度屬性
+var numList = {8, 7, 8, 2, 5};
+var x = numList.length; //length是計算陣列長度屬性
+>>>ch26_13.html 12 
+
+26-8 for/in 敘述
+用在陣列迴圈敘述，程式設計可以簡化許多
+>>>ch26_14.html Ref 13
+for (i in numList)
+執行第一次回圈時，i會是索引0，第二圈時i會是索引1...第五圈時i會是索引4，由這是最後一個迴圈，所以執行完，迴圈自動結束
+
+26-9 綜合應用
+>>>ch26_15.html Ref 9 設定正確數字

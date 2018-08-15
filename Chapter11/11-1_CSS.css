@@ -1,0 +1,166 @@
+/*CSS Cascading Style Sheet 樣式表，主要功能處理HTML文件排版與設計*/
+
+/*11-1 CSS基本語法
+11-1-1 語法格式
+selector { property1:value; property2:value; }
+
+selector：選擇器：指樣式表要套用的對象
+
+delcaration block：大括號內的區塊中文稱 宣告區塊，在HTML中每個 元素
+需搭配屬性attribute與值(value)，CSS中每個 選擇器 要搭配property(也可翻譯成屬性)與值(value)
+每組宣告的property與value之間用 : 冒號符號分隔，結束後建議加上分號;
+
+在宣告區塊內可以有多組宣告存在，彼此用;分隔開，放同一行或自行分行
+*/
+
+p { color:blue; text-align: center }
+/*兩個意思相同*/
+p {
+	color:blue;
+	text-align: center;
+}
+/*
+11-1-2 多個選擇器使用相同宣告區塊
+使用 , 逗號符號隔開選擇器*/
+h1 { color:blue; text-align: center; }
+h2 { color:blue; text-align: center; }
+h3 { color:blue; text-align: center; }
+
+h1,h2,h3 { color:blue; text-align: center; }
+
+/*11-1-3 CSS註解*/
+
+h1 { 
+	color:blue; /*文字顏色 藍*/
+	text-align: center; /*置中對齊*/
+}
+
+/*11-2 CSS 顏色設定
+1. 使用顏色名稱 ...red green blue 顏色數值 0-255
+2. 使用 rgb (red, green, blue)函數 每個參數值 0-255
+3. 使用16進位數值表示色彩 前方有 # 符號，基本格式 #RRGBB 英文字母大小寫不影響
+4. 使用 rgba(red, green, blue, alpha)函數 alpha 代表透明度 0.0(完全透明*/)-1.0 
+
+h2 {color:green;
+	color:rgb(0,255,0);
+	color:#00ff00;
+	color:rgba(0,255,0,0.5); /*半透明綠*/
+	}
+
+/*11-2-1 共有1600萬種顏色，因為R*G*B（0-255） 256*256*256=16777216
+11-2-2 網路安全顏色 - 256種顏色，早期螢幕僅支援256種顏色，一定能安全顯示
+11-2-3 HSL顏色 HSL指的是 色調 （Hue） 飽和度（Saturation）亮度（Lightness） 
+
+hsu(hue, saturation, lightness)
+hue：值從0-360，0或360是紅色，120是綠色，240是藍色
+saturation：這是百分比值，100%是全彩，0%是灰色
+lightness：這是百分比值，100%是白色，0%是黑色
+*/
+
+/*11-3 套用CSS方法
+1. 行內樣式 Inline Styles：這種方法是直接將stlye視為元素的屬性，然後設定屬性值
+	優先性高，少用，違背內容與排版分開的設計目的>>>ch11_1.html
+2. 內部樣式表 Internal Style Sheet：一般是僅用在一份HTML文件上，
+	將樣式表寫在HTML文件內的<head>元素內>>>ch11_2.html
+3. 外部樣式表 External Style Sheet：一般是供許多HTML文件使用，修改僅需調整一份CSS
+	關聯網頁隨之變動，副檔名css，需使用<link>元素設定HTML文件與樣式表的關聯
+	<link>元素要放在<head>元素內
+	＊必要屬性＊
+	rel：指定檔案與此文件的關係，請設為'stlyesheet'
+	type：設定檔案的MIME類型，HTML5可省略
+	href：外部樣式表檔案的URL
+	
+	>>>ch11_3.html ch11_4.html
+
+	<head>
+	<link rel="stylesheet" type="text/css" href="mystyle.css">
+	<!-- OR -->
+	<style>
+		@import url(mystyle.css);
+	</style>
+	</head>
+*/
+
+/*11-4 class 選擇器：相同元素出現在2的地方，想使用不同的格式裝飾位置Ａ和位置Ｂ
+對Ａ和Ｂ取 classname 名稱
+
+HTML： <body> <元素名稱 class="classname">
+CSS： 元素名稱.classname { ... } 中間的 . 代表 class
+
+>>>ch11_5.html ～ ch11_9.html
+如果style的元素名稱是 * 則所有HTML元素內class屬性值是classname可以套用該屬性>>>ch11_11.html
+*.classname{...}。＝＝＝ .classname{...}*/
+
+/*11-5 字型font：設定網頁顯示字型
+11-5-1 字型名稱：font-family
+		font-family:字型名稱1,...,字型名稱n;
+		＊指定多個名稱中間用逗號隔開，越前面越優先，都沒有使用預設
+		＊字型名稱超過2個英文或中文 "Times New Roman" 要用雙引號刮起來 一個英文可省略 Arial
+		>>>ch11_5.html
+11-5-2 字型大小 font-size：w3c 建議用em，1em = 16px
+		>>>ch11_6.html
+11-5-3 字型樣式 font-style：noraml 正常(default) , italic 斜體 oblique 傾斜體(比較不斜)
+		>>>ch11_7.html
+11-5-4 字型樣式 font-weight：bold （粗體）bolder（更粗的字體） lighter （更細的字體）
+		100 200 300 400 500 600 700 800 900
+		定義由細到粗 400是noraml 700是 bold
+		>>>ch11_8.html
+11-5-5 font-variant 預設是normal，若將設定為font-variant:small-caps
+		小寫英文字母為小型大寫字顯示>>>小寫轉大寫顯示
+		>>>ch11_9.html
+11-5-6 font-size-adjust 設定字型寬度和高度的比率，一般用在當螢幕顯示的字元非第一順位字元時
+		用於調整其他順序字元的長寬比，讓整體字元顯示不會有太大差異。
+		預設幾個重要字型 Times New Roman George Comic Sans MS Verdana
+		的寬度高度比分別是 0.46	 0.5 0.54 和0.58
+		>>>ch11_10.html
+11-5-7 font屬性設定簡單表示法，使用時依序設定下列屬性值
+		font-style font-variant font-weight font-size font-family
+		如果省略某些值，就會用他的default值 每個屬性值之間用空格隔開
+		若屬性值內有多個設定值 如font-family 就用逗號隔開
+		>>>ch11_11.html. 第七行
+
+11-5-8  @font-face 過去瀏覽網頁只能用瀏覽器提供的字型，HTML5的這個功能主要是提供
+		伺服器端的字型供瀏覽器下載，使用者在瀏覽器上可以看到原屬於伺服器的字型
+
+		@font-face{
+			font-family: 字型名稱; 自訂
+			src:字型名稱的URL format （字型格式）;
+		}
+		...
+		*.classname{
+			font-family: 字型名稱; 呼叫使用 自訂
+		}
+		＊注意版權問題
+11-5-9 綜合應用
+		>>>ch11_12.html. 第七行 "*.mystyle" *萬用字元*/
+/*
+11-6 id選擇器
+	#id {...}
+	元素名稱 #id {...}
+	>>>ch11_13.html*/
+
+/*11-7 屬性選擇器
+		*[classname]{...} 星號可省略
+	>>>ch11_14.html ~ ch11_16.html*/
+
+/*11-8 全域選擇器：將樣式套用在所有元素
+	*{...}. >>>ch11_17.html*/
+
+11-9 虛擬選擇器：主要是將樣式套用在元素內容的狀態
+11-9-1 連結的虛擬類別 :link 和 :visited
+	對於超連結字串而言，最常見兩個狀態是 尚未被點選時 與 已被點選時
+	虛擬類別使用上的特色是 ":"加上虛擬類別名稱 上述連結要搭配<a>元素使用
+	>>>ch11_18.html
+11-9-2 動作的虛擬類別
+	:hover 當滑鼠游標位於此超連結字串時或在此元素上可以套用樣式
+	:active 點選時可以套用此樣式
+	:focus 獲得焦點時可以套用樣式
+
+	樣式表執行有順序，越下方指令有較高優先順序:hover 要放在 :link 和 :visited 後面
+	>>>ch11_19.html ch11_20.html
+11-9-3 目標虛擬類別 
+	:target 可以為移動的目標套用樣式
+	>>>ch11_21.html
+
+
+paint

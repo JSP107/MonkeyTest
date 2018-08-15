@@ -1,0 +1,186 @@
+CH31 Google Maps API
+HTML5 提供獲取瀏覽器位置的API應用程式，獲取此資訊後，搭配GoogleAPI，在網頁顯示使用者位置的地圖
+提供給使用者更好服務 附近景點 導航 追蹤行動路徑 數據分析 判斷使用者習性
+
+31-1 HTML的Geolocation
+取得位置資訊方式
+	GPS 			精準 誤差小 但耗電定位速度較慢
+	WiFi			透過Wi-Fi取得
+	電話公司基地台		使用三角定位方式獲得 手機關機就無法
+	IP				特別是有固定IP，有誤差，有時並非使用者實際位置
+第一次使用Geolocation API 需要使用者同意，才能運作，未來就能持續使用了
+讀者最先認識的物件是 navigator.geolocation 各種定位方式與相關屬性，皆是它的子物件
+
+＝獲得使用者是否同意給位置資訊＝
+if(navigator.geolocation){
+	敘述A; //如果支援，執行此敘述
+}else{
+	敘述B; //如果不支援，執行此敘述
+}
+敘述A：通常是設計開始取得瀏覽器位置資訊
+敘述B：通常是列出錯誤訊息
+
+同意，回傳地球經度(longitue)和緯度(latitude)
+
+31-1-1 getCurrentPosition()
+＝取得位置資訊的API＝
+getCurrentPosition(onSuccess,onError,option);
+
+一 onSuccess 回傳函數，當可獲得瀏覽器位置資訊時，可獲得系列資訊，此函數有一個position物件，此物件包含coords和timestamp屬性，coords屬性本身也是一個物件，它包含下列地理位置資訊
+
+	coords.latitude：緯度資訊
+	coords.longitude：經度資訊
+	coords.accuracy：位置準確性資訊(如果有就回傳)，單位公尺
+	coords.altitudeAccuracy：海拔高度資訊(如果有就回傳)，單位公尺
+	coords.heading：設備前進方向，從北方向順時針方向角度表示(如果有就回傳)
+	coords.speed：目前前進速度(如果有就回傳)
+	timestamp：與coords一樣是物件，紀錄目前使用者的日期/時間(如果有就回傳)
+>>>ch31_1.html 列出使用者位置與時間資訊
+＝可省略＝
+二 onError 錯誤處理函數 有一個物件error 此物件有一個屬性code 主要是回傳錯誤訊息代碼
+code錯誤代碼資訊
+	PERMISSION_DENIED：也可用數值 1 代表，使用者拒絕提供
+	POSITION_UNAVAILBALE：也可用數值 2 代表，目前沒有訊息
+	TIMEOUT：也可用數值 3 代表，要求提供訊息時間到了
+	UNKNOWN_ERROR：不明原因錯誤
+>>>ch31_2.html 增加錯誤訊息原因處理函數 22-36
+
+三 option 提供一些選項供瀏覽器參考
+	enableHighAccuracy 預設是false 若是true則告訴瀏覽器提高精度數據
+	maximumAge 設定瀏覽器回應訊息的有效時間，過了之後瀏覽器需再給新資訊，單位是毫秒(millisecond) 預設是0秒 表示有要求時立即回應位置資訊
+	timeOut 可以設定等待時間，如果超過就使用錯誤處理函數 預設是0或infinite 表示沒有時間限制
+＝＝＝＝＝
+
+31-1-2 watchPosition() 和 clearWatch()
+Geolocation物件還有這兩個方法與回傳位置資訊有關
+
+watchPosition() 可回傳瀏覽器使用者最新位置訊息，會持續回傳，就像車上的GPS一樣，游標隨著實際移動跟著在地圖上移動
+clearWatch()
+終止watchPosition()
+>>>ch31_3.html  Ref 13
+
+31-2 取得Google Maps JavaSrcipt API金鑰
+取得瀏覽器使用者位置經緯度後，利用Google Map API將位置資訊轉換成地圖資訊
+須先申請 Google Maps JavaScript API金鑰，未來設計程式時，將金鑰放入<script>內
+...Google API Console >建立專案 >憑證類型 >Google Maps JavaScript API
+金鑰是一長串英文字母
+
+31-3 列出所在位置的Google地圖
+將經緯度轉成Google地圖，加上Google Maps API的腳本文件<script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=displayMap"></script>
+	   ------------
+	   這需用所申請的API金鑰取代
+由上述<script>可知道，Google地圖資訊是在Google網站內
+displayMap是筆者繪製Google地圖所設計的函數，看你使用什麼名稱就填什麼
+
+31-3-1 正式繪製Google地圖
+取得地圖的方法，筆者是用下列displayMap()函數
+>>>ch31_4.html 想順利執行 要在22行在key=後方和&callback前方 輸入自己向google申請的API金鑰
+
+Ref 13-16 筆者定義一個地圖資訊物件 mapInfo 此物件內的center和zoom意義如下
+	center：表示將經緯度資訊設為地圖的中央，須留意LatLng()方法的第一個參數是 緯度 第二個參數是 經度
+	zoom：是放大地圖倍數 筆者在ch34_4_1.html(將zoom改成20)
+	將會有與ch34_1.html的不同放大倍數提供參考結果
+
+最後使用Map()方法將新建地圖放入HTML通常是<div>所定義的區塊內
+
+new google.maps.Map(HTMLElement,MapInfo);
+Ref 17
+
+31-3-2 Google地圖類型
+	ROADMAP：預設2D地圖
+	TERRAIN：地圖包含高山和河流
+	SATELLITE：衛星拍照地圖
+	HYBRID：衛星拍照地圖，包含道路與城市名稱
+我們可使用下列第二十一行宣告方式引進地圖類別
+mapTrypeId: google.maps.MapTypeId.ROADMAP
+>>>ch31_5.html
+
+31-4 標記地理位置
+標記使用者地點功能，運輸公司老闆，隨時暸解車輛位置，延伸設計導航
+
+31-4-1 基本標記Marker
+宣告一個marker物件，在使用Marker()方法設計標記位置，最後由marker物件使用setMap()方法執行標記
+Ref 16 17
+>>>ch31_6.html
+	12行 宣告myCenter物件，物件內含有Google Maps位置資訊
+	13行 宣告objMap物件，這是預留未來顯示地圖的<div>區塊
+	14行 宣告mapInfo物件，物件含有myCenter和zoom資訊
+	15行 繪製地圖，同時回傳IocMap，未來可供標記用
+
+31-4-2 為基本標記加動畫 31-4-1功能擴充 主要是在Marker()方法中多了將animation屬性設為BOUNCE Ref 18行 讓標記有彈跳動畫效果
+>>>ch31_7.html
+
+31-4-3 用圖示當標記 前兩節是預設標記，可更改成任意圖像當作標記 只是將animatino屬性改為icon屬性，然後將圖片設為屬性值 Ref 18
+>>>ch31_8.html
+
+31-4-4 用圈圈當標記
+Circle()方法可繪製，此方法可使用下列屬性
+	center：設定特定的經緯度位置當作圈圈標記中心
+	radius：圈圈的半徑 單位是公尺
+	strokeColor：可設定圈圈框的顏色
+	strokeOpacity：可設定圈圈框的色彩透明度
+	strokeWeight：設定圈圈框的權重 單位是px
+	fillColor：填充圈圈的色彩
+	fillOpcaity：填充去圈圈的色採透名度
+>>>ch31_9.html
+
+31-4-5 為標記加註文字資訊
+InfoWindow()方法內設定content屬性值即可 Ref 19
+>>>ch31_10.html
+
+31-4-6 繪製地圖直線路徑
+Ref 19-24 linePath.setMap(locMap)
+
+Polyline為系列地圖節點連結設為折線路徑，以下是常用屬性
+	path：定義節點路徑 Ref 20
+	strokeColor：設定路徑的顏色 Ref 21
+	strokeOpacity：設定路徑的色彩透明度 
+	strokeWeight：設定路徑框的權重 單位px Ref 22
+>>>ch31_11.html
+>>>ch31_11_1.html
+12-17 繪製地圖
+19-24 繪製路徑
+26-29 繪製圖像
+
+31-4-7 繪製地圖多邊形
+Polygon 將折線線斷封閉起來變成多邊形，也就是最初節點會和最末節點連接，可使用屬性與Polyline和Circle類似
+>>>ch31_12.html Ref 19 23 24
+	path：定義節點路徑 
+	strokeColor：設定路徑的顏色 
+	strokeOpacity：設定路徑的色彩透明度 
+	strokeWeight：設定路徑框的權重 單位px 
+	fillColor：填充圈圈的色彩
+	fillOpcaity：填充去圈圈的色採透名度	
+
+31-5 事件處理程式 主要將HTML DOM的事件addListener()，應用在Google Maps的標記上
+31-5-1 addListener()簡介
+element.addEventListener(event,function);
+當element元素觸發event事件時，執行function函數
+
+按一下element元素時，出現alert視窗列出"Good Morning"
+element.addEventListener("click", function(){ alert("Good Morning"); } );
+外部函數方式
+element.addEventListener("click", myFun);
+
+function myfun(){ 
+Alert("Good Morning");
+}
+
+31-5-2 按一下Google Maps 標記列出文字框
+>>>ch31_13.html 按一下標記時，在標記上方加註文字框 筆者設計內容是 "早安台北"
+最重要是 21行 在addListener()函數內增加第一個參數，可以解釋為當在marker物件(地圖上的標記)，按一下時，會觸發myFun()函數，所以執行22-25行輸出文字框
+
+>>>ch31_13_1.html 按一下自建的標記時，也可列出文字框
+
+31-5-3 點選圖片可以列出標記和地理位置資訊
+當使用者在視窗任意位置按一下，HTML的DOM可以紀錄按一下的位置，當在Google Maps上按一下，所按位置的地理資訊位置也會被紀錄
+>>>ch31_14.html
+Ref 17-21 按一下會觸發setMarker函數，同時event.LatLng會紀錄地理位置，當作參數傳送
+Ref 24-26 會在location地理位置輸出標記 28-29 設定文字框的內容 此例紀錄地理位置的經緯度資訊 31 在指定位置輸出文字框
+
+31-6 45度角度透視欣賞古典建築
+>>>ch31_15.html
+輸入經緯度，將zoom放大到18倍，地圖類型設為HYBRID或SATELLITE 
+

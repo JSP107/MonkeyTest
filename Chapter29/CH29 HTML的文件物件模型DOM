@@ -1,0 +1,300 @@
+CH29 HTML的文件物件模型DOM
+DOM (Document Object Model)，有他就可以使用JS存取 更改所有HTML的元素
+
+29-1 認識DOM：主要是定義存取HTML文件的發法與標準，也可以說DOM提供一個介面，可以讓不同的電腦語言(programs)或腳本語言(scripts)可以動態存取或更新HTML文件的元素
+
+本書重點是使用JS存取 更改HTML的元素，特別注意 DOM不是JS的一部份
+
+W3C DOM的標準有3種：
+	HTML DOM：HTML文件的標準是本書重點 
+	XML DOM：XML文件的標準
+	Core DOM：所有文件的標準
+
+更精確的說，DOM定義了HTML物件(object)模型和程式介面(Application Programming Interface 簡稱API)基本定義如下
+	每個HTML元素皆是一個物件(object)
+	所有HTML元素的屬性(property)
+	存取所有HTML元素的方法(method)
+	所有HTML元素的事件(event)
+
+上述筆者以存取(access)代表DOM對HTML元素的定義，更精準地說，DOM定義了增加(add) 刪除(delete) 取得(get) 和更改 (change) HTML元素的標準跟方法
+
+當一個HTML文件下載到瀏覽器後，瀏覽器會為網頁建立一個DOM模型，是一個樹狀結構
+>>>ch29_1.html
+										meta
+								head--
+										title
+Documenet--Root element html --
+										h1
+								body--	p
+										ul--	li
+												li
+												li
+JS利用樹狀結構與原理，執行以下工作
+刪除現有/新增/取得/更改 HTML的元素與屬性
+更改頁面CSS樣式
+為頁面事件設計處理程式
+為頁面建立新的事件
+
+29-2 取得HTML元素
+29-2-1 getElementByID()
+是document物件的方法，大多數執行結果以此方法存入HTML元素內
+>>>ch29_2.html
+
+29-2-2 getElementsByTagName()
+使用標籤(tag)名稱，一份HTML文件內可能有許多標籤名稱是相同，因此由此可以傳回一個節點串列(HTML Collection)元素內容，第一筆資料的索引是0 第二筆是1 ...以此類推
+
+其實傳回的節點串列元素內容，看起來好像是陣列(array)，需用索引存取，可是我們無法將陣列的函數push()或pop()..等應用在節點串列上
+>>>ch29_3.html  用標籤名稱(TagName)方式取得所有<p>元素的內容，然後輸出
+
+29-2-3 getElementByClassName()
+由於一個HTMl文件內可能會有某些元素有相同類別(class)名稱，因此由此可以傳回一個相同類別名稱的節點串列元素內容，第一筆資料的索引是0 第二筆是1 ...以此類推。 “值得留意”的是不同元素，但有相同的類別(class)也將列出
+>>>ch29_4.html 列出第八 十 十一 行 類別是info的所有資料 
+
+29-2-4 qureySelectorAll() 和 querySelector()
+qureySelectorAll() 此方法主要是可以搜尋與特定CSS選擇器屬性相同的元素，同樣可能會有多筆資料符合，傳回值是節點串列元素
+>>>ch29_5.html 傳回class屬性值是 info 的所有<p>元素 同時列出這些內容
+
+querySelector() 主要可以搜尋與特定CSS選擇器屬性相同的元素，同時是第一筆資料，所以傳回值是單一元素
+>>>ch29_6.html 取得第一筆class是info的<p>元素 Ref 14 15 取得第一筆<p>元素 Ref 16 17
+
+29-2-5 雙層條件的存取功能
+例如 想要存取所有id是"mybook"的<p>元素
+>>>ch29_7.html Ref 10 11
+
+29-2-6 傳回串列長度length
+29-2-2節起知道存取元素時，常看到會傳回串列，另外也能傳回串列長度，也就是元素的數量，這個數量會存在length屬性內，先前的設計都是筆者已經知道有多少筆資料的設計方式，以下用更科學的方式
+>>>ch29_8.html. 會回傳資料筆數 同時用for迴圈敘述將結果放入 <p id="ex1">再印出
+
+29-2-7 元素內容屬性
+1. textContent：內容，不包含任何標籤碼
+2. innerHTML：元素內容，含子標籤碼，但不含本身標籤碼
+3. outerHTML：元素內容，含子標籤碼，也含本身標籤碼
+
+如果有一個元素內容如下
+<p>Marching onto the path of <b>Web Design Expert</b></P>
+
+1. textContent：Marching onto the path of Web Design Expert
+2. innerHTML：Marching onto the path of <b>Web Design Expert</b>
+3. outerHTML：<p>Marching onto the path of <b>Web Design Expert</b></P>
+>>>ch29_9.html 測試上述document屬性 可按任意鍵 系統將列出執行節我 Ref 22 測試屬性<p>元素
+
+28-2-8 元素大小與位置
+元素的位置與尺寸的屬性如下(單位是px)
+offsetHeight：元素物件的高度
+offsetWidth：元素物件的寬度
+offsetLeft：元素物件距離左邊界的距離
+offsetTop：元素物件距離上邊界的距離
+>>>ch29_10.html
+
+28-2-9 更改圖片大小
+height width 屬性分別設定圖片大小
+>>>ch29_11.html
+
+29-3 更改HTML元素內容
+29-3-1 標題或段落的內容更改
+document.getElementById(id).innerHTML = new HTML;
+>>>ch29_12.html 更改標題內容h1的實例 按下按鈕後切換標題內容
+>>>ch29_13.html 更改段落內容p的應用 
+
+29-3-2 屬性內容更改
+document.getElementById(id).attrubute = new value;
+>>>ch29_14.html Ref 11 15 可以更改 src 屬性內容 相當於更改圖片
+
+29-4 DOM節點與瀏覽元素
+在DOM規範中的每一個元素，也可以將它視為一個節點(Node)
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>ch29</title>
+</head>
+<body>
+<h1></h1>
+<p><a></a></p>
+<img>
+</body>
+</html>
+
+================樹狀圖=====================
+	----->	firstChild	<meta>
+	<-----  parentNode
+			<head>-----
+						<title>---firstChild Text:"ch29" (又稱文字節點)(text node)
+
+<html>----  
+			
+	----->	lastChild	childNodes[0]
+	<-----  parentNode		<h1>
+							^
+							|previousSibing
+							|
+			<body>		childNodes[1]
+							<p>---		<a>
+							|
+							|nextSilbing
+							V
+						childNodes[2]
+							<img>
+===========================================
+parentNode：父節點 <html> 是 <head> 跟 <body>的父節點
+firstChild：第一個子節點 <h1> 是<body> 以childNodes[0]表示 
+			另外末端節點的節點內容算是第一個子節點(firstChild)內容，此內容也算一個節點，稱文字節點(text node) 例如 "ch29"
+lastChild：最後一個子節點 <img> 是 <body>
+previousSibling：前一個兄弟節點 <h1> 對於 <p>
+nextSibling：下一個兄弟節點 <img> 對於 <p>
+nodeName：節點的標籤名稱
+nodeValue：節點內容
+
+上述childNods[]又稱 集合物件 有了它 任一個節點皆可進入它的子節點，存取節點以及節點內容
+
+29-4-2 存取節點值
+先前元素內容的取得可以用下列敘述
+var txt = document.getElementById("ex").innerHTML;
+
+雖然node是節點內容，但是想要使用節點方式取得內容，方法如下
+var txt = document.getElementById("ex").firstChild.nodeValue;
+	或
+var txt = document.getElementById("ext").firstChild.data;
+>>>ch29_15.html Ref 5 <title id="info">ch29_15.html</title>
+nodeName = TITLE  firstChild.nodeValue = ch29_15.html
+>>>ch29_16.html 使用childNodes[]存取元素內容
+>>>ch29_17.html 將innerHTML 改成 childNodes[0]
+
+29-4-3 <body> 和 <html> 節點
+document.body：<body>內所有文件內容>>>ch29_18.html
+document.documentElement：<html>內所有文件內容>>>ch29_19.html
+
+29-4-4 相同父節點的兄弟節點內容
+previousElementSibling.innerHTML：前一個節點內容>>>ch29_20.html
+nextElementSibling.innerHTML：後一個節點內容>>>ch29_21.html
+
+29-4-5 存取父節點 
+parentNode.nodeName
+>>>ch29_22.html
+
+29-5 建立 插入 刪除節點
+29-5-1 建立節點
+首先要建立一個新節點，然後將此節點插入適當的父元素內，成為一個子元素
+可分為 建立節點類型和建立節點的文字節點(可想成內容)，最後再用appendChild()將節點和文字節點串起來
+
+var newNode = document.createElement("元素");	//newNode 是新建節點名稱
+var nodeText = document.creteeTextNode("內容");	//nodeText 是文字節點
+
+串起來
+newNode.appendChild(nodeText); //將newNode和nodeText串起來
+節點建立完成後，下一步是找尋插入元素，下列是插入id是 demo 的實例
+var existParentNode = document.getElementById("demo");
+最後再將所建立的節點插入元素內，一般會插到最後面成為該元素的lastChild
+existParentNode.appendChild(newNode);
+>>>ch29_23.html
+
+29-5-2 將節點插入特定位置
+node.insertBefore(newNode, child);
+node是父節點 newNode 新建節點 child 是目標節點 newNode會插入在node父節點下，但在child之前
+>>>ch29_24.html
+
+29-5-3 刪除節點
+DOM刪除節點時，一定要指出是刪除哪個父節點的子節點，使用removeChild()方法執行刪除
+parentNode.removeChild(childNode);
+上述相當於刪除parentNode的子節點 childNode
+>>>ch29_25.html
+
+29-5-4 更換節點
+DOM更換節點時，一定要指出是更換哪個父節點的子節點，使用replaceChild(newNode, childNode);方法執行更換
+parentNode.replaceChild(newNode, childNode);
+上述相當於使用newNodee更換parentNode的子節點 childNode
+>>>ch29_26.html
+
+29-6 DOM與CSS
+HTML允許JS更改文件的CSS樣式表的屬性內容
+document.getElementById(id).style.property = new-style;
+常用屬性
+backgroundcolor：背景色
+backgroundimage：圖案
+color：前景色
+visibility：是否顯示
+fontFamily：字型
+fontSize：字型大小
+textAlign：對齊方式
+>>>ch29_27.html ~ ch29_30.html
+
+29-7 HTML的集合物件
+HTML DOM 提供特別屬性可以存取集合(collection)物件，語法結構如下
+
+document.images：配合<img>標籤使用
+document.forms：配合<form>標籤使用
+document.anchors：配合有name屬性的<a>標籤使用，不過name屬性HTML5不支援
+document.links：配合有href屬性的<a>標籤使用
+使用上述物件時，有下列屬性可用
+	length：<img>物件數量
+有下列方法可用
+	[index]：返回<img>物件的特定索引值
+	item(index)：傳回特定索引值的<img>物件
+	namedItem(id)：傳回特定id的<img>物件
+
+29-7-1 document.images
+此物件可回傳整個HTML文件所有<img>元素的集合，須留意 <input>元素type屬性是"image"不屬於此集合
+>>>ch29_31.html ~ ch29_33.html
+傳回圖片數量
+使用三種方法列出圖片的URL資訊
+為第一張圖加上藍色點點線
+
+29-7-2 document.forms
+此物件可回傳整個HTML文件所有<form>元素的集合
+>>>ch29_34.html ch29_35.html
+列出form的數量和id屬性值
+將form內每一個元素內容印出來
+
+29-7-3 document.links
+可傳回有href屬性的<a>標籤的元素集合
+>>>ch29_36.html 計算元素數量 同時將索引為0的超連結用藍色實線框住
+
+29-8 DOM events事件屬性
+10-2 列出HTML所有事件屬性的列表 onload onclick...etc
+
+29-8-1 onload 與 onunload 事件
+onload 事件是指HTML文件下載時產生的事件
+onunload 主要是當目前HTML頁面被卸載時，會發生此事件
+	瀏覽器被關閉
+	按一下超連結
+	遞交一份表單
+	重新載入(reload)網頁，此時也會觸發onunload事件
+基本語法
+<element onunload="myFun()">
+>>>ch29_37.html 事件觸發時，輸出下回再見對話視窗
+
+29-8-2 onchange事件
+此事件在元素內容被更改時會觸發，一般輸入欄位若有內容被改變時
+基本語法
+<element onchange="myFun()">
+>>>ch29_38.html  ~ ch29_39.html
+有程式更改預設輸入欄位 同時按一下其他區域 將列出對話方塊
+程式執行時 若有新選單項目會出現對話方塊 列出新選項內容
+
+29-8-3 onclick事件
+大部分是配合<button> 按下去會觸發
+<element onclick="myFun()">
+>>>ch29_40.html ch29_41.html
+
+29-8-4 ondblclick 事件
+只連續按物件兩下觸發的事件
+<element ondblclick="myFun()">
+>>>ch29_42.html
+
+29-8-5 onmouseover 和 onmouseout事件
+當滑鼠滑入某物件內時會產生 onmouseover 事件
+當滑鼠游標離開某物件內時會產生 onmouseout事件
+<element onmouseover="myFun()">
+<element onmouseout="myFun()">
+>>>ch29_43.html
+
+29-8-6 onmousedown 和 onmouseup 事件
+按滑鼠左鍵會產生onclick 但其實會先產生onmousedown 放開後產生 onmouseup 事件
+<element onmousedown="myFun()">
+<element onmoustop="myFun()">
+>>>ch29_44.html
+
+28-8-7 在JS內建立事件
+目前看到的事件，均是在元素內增加事件屬性，未來此元素被觸發時，會執行元素內設定的函數，其實我們也元素中不設定事件屬性，改在<script>內設定
+>>>ch29_45.html Ref 9 12行
+>>>ch29_46.html

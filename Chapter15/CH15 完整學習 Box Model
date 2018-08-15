@@ -1,0 +1,235 @@
+CH15 完整學習 Box Model
+
+15-1 認識box model
+Padding border margin 預設值為0
+
+內容盒子 content box 顯示網頁文字和圖片區域，可以是一張圖片 標題(h1-h6)，段落(p)，區塊(div)
+
+內邊距(padding)
+內容的留白空間，內容與邊框之間的空間，讓背景顏色或圖案在此顯示
+
+邊框(border)
+網頁設計 設定實線 虛線 特殊效果線
+
+外邊距(margin)
+邊框四周留白區域，背景顏色與圖案不會在此區域，預設是透明(trasparent)，但是父元素有背景顏色或圖案，在此區看得到
+
+15-2 外邊距 Margin 的設計
+
+margin-top
+margin-right
+margin-button
+margin-left
+margin 簡易表示法 順序是順時針方向 top right button left (上 右 下 左)
+>>>ch15_1.html
+
+15-2-1 <body>的外邊距
+>>>ch15_2.html
+15-2-1 外邊距的合併
+兩個垂直的外邊距相遇時，瀏覽器會自動合併成一個，合併後會用較大的外邊距當作外邊距
+15-2-3 外邊距應用在段落輸出的實例
+>>>ch15_3.html
+
+15-3 內邊距 Padding 的設計
+padding-top
+padding-right
+padding-button
+padding-left
+padding:簡易表示法 順序是順時針方向 top right button left (上 右 下 左)
+>>>ch15_4.html
+
+15-4 邊框 Border 的設計
+15-4-1
+設計邊框樣式使用 border-style
+border-top-style
+border-right-style
+border-button-style
+border-left-style
+border-style:簡易表示法
+a.如果只有一個值，套用到上下左右邊框
+b.如果有兩個值，上下套用第一個值，左右套用第二個值
+c.如果有三個值，上套用第一個值，左右套用第二個值，下套用第三個值
+d.如果有四個值，上下左右分別套用一二三四的值
+
+可能 邊框值
+none: 無框線
+dotted: 點框線
+dashed: 虛框線
+solid: 實線框線，寬度由border-width決定
+groove: 3D內凹框線，效果須由border-color決定
+ridge:  3D內外框線，效果須由border-color決定
+
+inset outset
+>>>ch15_5.html ~ ch15_7.html
+
+15-4-2
+設計邊框顏色使用 border-color
+border-top-color
+border-right-color
+border-button-color
+border-left-color
+border-color:簡易表示法
+a.如果只有一個值，套用到上下左右邊框
+b.如果有兩個值，上下套用第一個值，左右套用第二個值
+c.如果有三個值，上套用第一個值，左右套用第二個值，下套用第三個值
+d.如果有四個值，上下左右分別套用一二三四的值
+>>>ch15_8.html
+
+15-4-3
+設計邊框寬度使用 border-width
+border-top-width
+border-right-width
+border-button-width
+border-left-width
+border-color:簡易表示法
+a.如果只有一個值，套用到上下左右邊框
+b.如果有兩個值，上下套用第一個值，左右套用第二個值
+c.如果有三個值，上套用第一個值，左右套用第二個值，下套用第三個值
+d.如果有四個值，上下左右分別套用一二三四的值
+
+邊框值
+thin:細框線
+medium:預設 中等框線
+thick:粗框線
+length:設定邊框寬度可以使用的單位ref 附錄D
+
+>>>ch15_9.html
+
+15-4-4 邊框屬性的簡易表示法
+簡化 border-style border-color border-width
+應用 border-top border-right border-button border-left
+>>>ch15_10.html
+
+15-4-5
+設計邊框圓角使用 border-radius
+
+border-top-left-radius:長度1(或百分比)長度2(或百分比)
+設定 左上方 的邊框圓角 如果只有一個長度 表示圓角 如果有兩個長度 第一個長度是水平軸半徑 第二個垂直軸半徑
+如果是百分比 第一個代表是以區塊寬度的百分比當半徑，第二個是以區塊高度的百分比當半徑
+border-top-right-radius:長度1(或百分比)長度2(或百分比)>>>右上方
+border-button-left-radius:長度1(或百分比)長度2(或百分比)>>>左下方
+border-button-right-radius:長度1(或百分比)長度2(或百分比)>>>右下方
+border-radius：長度1 2 3 4
+簡便表示法：只能設定成圓角
+a.只有一個數值，四個角都以此數值當作半徑
+b.兩個數值 左上右下 1 右上左下 2
+c.三個數值 左上 1 右上左下 2 右下 3
+d.四個數值 左上 1 右上 2 右下 3 左下 4
+>>>ch15_11.html ～ ch15_13.html
+
+15-4-6
+設計圖樣邊框 border-image
+新觀念，將圖片設為邊框的花樣，取代border-style屬性
+*需注意要宣告border的屬性值，因為沒有設定，預設值是0，就沒辦法顯示
+border:50px solid;
+套用邊框圖案：border-image-source:圖片的URL
+設定邊框圖案分割border-image-slice: 長度 | fill | intial | inherit;
+
+長度： 依序順時針 上右下左
+％：可使用百分比長度
+fill：如果有指定fill 原先套用邊框圖案中央的內容就會顯示出來
+>>>ch15_14.html ~ ch15_15.html
+
+套用邊框的寬度border-image-witdth:長度單位(百分比) | 數值 | auto
+
+長度單位(百分比):可有1-4個數值 依序順時針 上右下左
+數值：用倍數觀念處理的寬度，預設是1 可有1-4個數值 依序順時針 上右下左
+auto:和 border-image-slice所指定的數值相同，如果沒有用border-image-slice則使用border-width屬性值
+>>>ch15_16.html ~ ch15_17.html 
+
+加長圖案邊框的區域border-image-outset:長度單位(百分比) | 數值
+>>>ch15_18.html 
+
+設定邊框圖案重複顯示方式border-image-repeat:stretch | repeat | round | space
+
+stretch | 預設 配合邊框圖案將被展延
+repeat | 配合邊框，圖案重複顯示，超出部分就裁減掉
+round | 配合邊框，圖案重複顯示，超出部分時圖案自動縮小，以配合邊框
+space | 配合邊框，圖案重複顯示，如果超出邊框無法顯示，將多餘的空間分配到個別圖案區間
+>>>ch15_19.html
+
+簡易表示法border-image
+border-image-source 圖片的URL
+border-image-slice 圖片的分割位置
+border-image-width 圖片的寬度
+border-image-outset 圖片加長的距離
+border-image-repeat 邊框的重複方式
+
+各屬性值需要空一格 當寬度跟加長的距離同時存在 之間需有"/" 有任何屬性值省略會套用預設值
+>>>ch15_20.html
+
+
+
+15-5 補充背景功能 
+15-5-1 設定背景（背景顏色和圖片）顯示範圍
+background-clip: border-box | padding-box | content-box
+
+border-box | 背景顯示在邊框盒子之內的區域
+padding-box | 背景顯示在內邊距盒子之內的區域
+content-box | 背景顯示在內容盒子之內的區域
+>>>ch15_21.html
+
+15-5-2 設定背景圖案的基準位置
+background-origin: border-box | padding-box | content-box
+border-box | 邊框盒子左上角是基準，圖片左上角在此點，稱(0.0%,0.0%) 右下角 (100.0%,100.0%)
+padding-box | 
+內邊距盒子左上角是基準，圖片左上角在此點，稱(0.0%,0.0%) 右下角 (100.0%,100.0%)
+
+content-box | 
+內容盒子左上角是基準，圖片左上角在此點，稱(0.0%,0.0%) 右下角 (100.0%,100.0%)
+>>>ch15_22.html
+
+
+15-6 設定盒子陰影 box-shadow: h-shadow v-shadow blur spread color inset;
+每個陰影由2-4個長度值，顏色，以及inset選項組成 若長度數值省略則是0
+可以設定多組陰影數據，彼此用 , 隔開，先寫的陰影會在最上層
+
+h-shadow 必須值 代表水平陰影向右延伸的數量 負值則是向左延伸
+v-shadow 必須值 代表垂直陰影向下延伸的數量 負值則是向上延伸
+blur 模糊長度 只有一個數值 代表模糊的範圍 有第二個數值 將向四周擴散
+
+color 陰影顏色 省略使用瀏覽器預設
+inset 若設定，表示內側陰影
+>>>ch15_23.html ch15_23_1.html
+
+15-7 設定盒子寬高 box-sizing:content-box | padding-box | border-box;
+
+content-box | 預設，內容盒子區的寬度與高度
+padding-box | 內邊距盒子區(包含內邊距和內容盒子)的寬度與高度
+border-box. | 邊框盒子區(包含邊框 內邊距 和內容盒子)的寬度與高度
+>>>ch15_24.html
+
+
+15-8 內容超出範圍時顯示方式 overflow
+資料超出內容盒子時，可由overflow-x(水平軸)和overflow-y(垂直軸)設定處理方式
+
+overflow-x(或y):visible | hidden | scroll | auto
+
+visible | 在內容盒子外顯示超出的內容
+hidden | 不顯示超出內容，也不提供水平（垂直）捲軸
+scroll | 不顯示超出內容，提供水平（垂直）捲軸，可捲動顯示內容
+auto | 瀏覽器設定 一般會提供捲軸
+>>>ch15_25.html ~ ch15_29.html
+
+15-9 outline(指緊鄰border外的邊緣)屬性
+相關設定與border定義相同
+outline-color 類似border-color
+outline-width 類似border-width
+outline-style 類似border-style
+outline-offset 這是定義outline邊緣與border邊框的距離
+>>>ch15_30.html
+
+簡易表示法 outline: outline-color outlne-style outline-width;
+>>>ch15_31.html
+
+15-10 設定盒子的尺寸 resize:none | horizontal | vertical
+
+none 預設 無法調整
+both 可以調整寬度與高度
+horizontal 可以調整寬度
+vertical 可以調整高度
+上述屬性值在使用時需要同時設定overflow屬性值
+ref 9 14 19 
+>>>ch15_32.html
+
+

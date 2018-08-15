@@ -1,0 +1,120 @@
+Ch12 段落文字的編排知識
+1. 文字對齊方式 text-align
+left | right | center | justify 左右對齊| initial 預設| inherit ;
+繼承父元素對齊方式
+>>>ch12_1.html
+
+2. 首行縮排 text-indent
+length | % | initial | inherit;
+length 可使用 cm px pt em 設定固定長度 預設為0
+％ 縮排父元素寬度的百分比
+>>>ch12_2.html
+
+
+3. 行高的設定 line-height
+normal | number | length | % | inherit;
+normal 預設 合理的行高
+number 設定數字 這個數字會與目前字型尺寸相乘來設置行間距
+length 設定固定的行間距 單位可以是cm px pt
+% 依照目前字型尺寸的百分比
+>>>ch12_3.html
+
+4. 字母間距 letter-spacing
+normal | number | length | inherit;
+normal 預設 沒有額外空間
+length 設定固定的字元間距 可以是負值
+>>>ch12_4.html >>>ch12_5.html
+
+5. 文字間距 word-spacing
+normal | length | initial | inherit;
+normal 預設 文字間距是0.25em
+length 設定額外文字的間距 可以是負值
+>>>ch12_6.html
+
+6. 處理空白字元 white-space
+normal | nowrap | pre | pre-line | pre-wrap | inithial | inherit;
+normal 預設 瀏覽器會忽略空白
+nowrap 本文不換行 直到遇上<br>元素
+pre 空白會保留 類似HTML的<pre>元素
+pre-line 合併空白符號，文件正常換行
+pre-wrap 瀏覽器會保留空白符號，文件正常換行
+>>>ch12_7.html
+
+
+7. 大小寫轉換 text-transform
+normal | capitalize | uppercase | lowercase | inithial | inherit;
+normal 預設 保持文字原本樣式
+capitalize 文字第一個字母大寫
+uppercase 字母全部轉換成大寫
+lowercase 字母全部轉換成小寫
+>>>ch12_8.html
+
+
+8. 文字陰影 text-shadow
+h-shadow v-shadow blur-radius color | none | inithial | inherit;
+h-shadow 水平陰影的位置，往右是正值，允許負值 不可省略	
+v-shadow 垂直陰影的位置，往下是正值，允許負值 不可省略
+blur-radius 可設定模糊的範圍，單位與h-shadow和v-shadow相同 可省略
+color 陰影的顏色 可省略
+none 預設 沒有陰影
+
+只要重複 h-shadow v-shadow blur-radius 就可以建立多重的陰影
+>>>ch12_9.html
+
+9. 線條裝飾 text-decoration
+none| underline | overline | line-through | inithial | inherit;
+none 預設 正常顯示
+underline 底線
+overline 頂線
+line-through 刪除線
+>>>ch12_10.html
+
+
+10.再談線條裝飾(firefox 支援)
+12-10-1 text-decoration-line 屬性值用法同text-decoration
+none| underline | overline | line-through | inithial | inherit;
+12-10-2 text-decoration-color 主要是設定裝飾線條顏色 >>>ch12_12.html
+12-10-3 text-decoration-style
+dashed | dotted | double | solid | wavy | inithial | inherit;
+solid 實線 預設
+dashed 虛線
+dotted 點線
+double 雙線
+wavy 波浪線
+目前除了solid有獲得firefox支援 其他瀏覽器都沒有
+>>>ch12_13.html
+
+
+11.設定tab鍵寬度 tab-size
+number| length | inithial | inherit;
+number 預設是8個英文字元寬度
+length 設定tab字元的長度，目前尚未獲得主要瀏覽器支援
+>>>ch12_14.html
+
+12.設定換行 word-wrap
+normal | break-word;
+normal 預設，只有在可以換行的地方換行，否則持續顯示直到結束
+break-word 可以直接將較長的單字或URL網址中途換行
+>>>ch12_15.html
+
+13.設定文字超出顯示範圍時的處理方式 text-overflow 原本是IE特有的屬性功能
+clip | elipsis | string | initial | inherit;
+clip 超出顯示區的資料不予顯示
+elipsis 超出顯示區的資料以 "..." 顯示
+>>>ch12_16.html
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+	
+
+
+
+</body>
+</html>

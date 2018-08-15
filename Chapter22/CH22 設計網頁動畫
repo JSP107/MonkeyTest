@@ -1,0 +1,76 @@
+CH22 設計網頁動畫
+漸變效果 只有開始跟結束的樣式
+這一章將動畫分成多個關鍵點，也稱關鍵影格key frame 設定每個影格內容 在播放達到動畫效果
+
+22-1 關鍵影格 
+@keyframes name {
+	0% {屬性: ; ~}
+	...
+	100% {屬性: ; ~}
+}
+
+name 關鍵影格的名稱，此名稱未來須以 animation-name 屬性設定使用
+百分比% 動畫的時間的關鍵點，用時間百分比做紀錄，開始是0% 結束是100% 這兩個影格不可省略，中間的過程則是不同百分比，可設計屬性與相對應得屬性值
+其中 0% 100% 分別可用 from to 取代
+
+22-2 運用關鍵影格 animation-name:none | name;
+
+none 沒有動畫
+name 使用動畫名稱
+將動畫名稱設為 myanimation以及引用實例 Ref 21 28
+@keyframes myanimation {
+	0% {屬性: ; ~}
+	...
+	100% {屬性: ; ~}
+}
+...
+...
+animation-name:myanimatino;
+
+22-3 設定動畫時間 animation-duration:time | initial | inherit;
+
+time 可設定秒(s)或毫秒(ms)，如果有多個屬性要分開執行漸變效果，用逗號 , 隔開
+>>>ch22_1.html ch22_2.html 
+
+22-4 設定動畫變數方式 animation-timing-function: ease | ease-in | ease-out | ease-in-out | linear | step-start | step-end | steps(int,start | end) | cubic-bezier(n,n,n,n) | initial | inherit;
+Ref 21-4
+使用時可針對一個關鍵影格或整個動畫做速度設定
+>>>ch22_3.html ref 16行 ch22_4.html 使用from to 取代 0% 100%
+
+22-5 設定動畫次數 animation-iteration-count:number | infinite | initial | inherit;
+
+number 預設值是1 在此設定動畫次數
+inifinite 無限次數執行
+>>>ch22_5.html ref 19行
+
+22-6 設定動畫重複執行的方向 animation-direction: normal | reverse | alternate | alternate-reverse | initial | inherit;
+
+normal 預設，使用相同方向
+reverse 使用相反方向
+alternate 奇數次數使用正方向，偶數次數使用反方向
+alternate-reverse 與alternate相反 奇數 反方向 偶數 正方向
+>>>ch22_6.html Ref 21 ch22_7.html
+
+22-7 設定動畫執行或暫停 animation-play-state:running | paused | initial | inherit;
+
+running 預設項，動畫是執行狀態
+paused 設定動畫暫停
+>>>ch22_8.html Ref 24 行
+
+22-8 可設定動畫延遲時間 animation-delay:time | initial | inherit;
+
+time 可設定秒(s)或毫秒(ms)，漸變效果時，可設定延遲時間
+>>>ch22_9.html Ref 23 行
+
+22-9 設定動畫延遲與完成的樣式 animation-fill-mode:none | forwards| backwords | both | initial | inherit;
+
+none 預設 沒有任何樣式
+forwards 動畫完成後，保持最後動畫關鍵影格樣式
+backwards 動畫再延遲時，保持最初動畫關鍵影格樣式
+both 同時遵照forwards backwards 規定，動畫在延遲時保持最初動畫關鍵影格樣式。動畫完成後保持最後動畫關鍵影格樣式。
+>>>ch22_10.html Ref 23 行 13行
+
+22-10 動畫的簡易表示法 animation:animation-name animation-duration animation-timing-function animation-iteration-count animation-direction animation-play-state animation-delay animation-fill-mode;
+
+以上屬性順序不拘，沒有設定會給預設值 同時設定animation-duration 和 animation-delay 秒數時，會先判給animation-douration再給animation-delay 若只設定一個秒數，則給animation-douration 彼此用空格隔開
+>>>ch22_11 重新設計ch22_7 重點在18行 取代之前的18-21

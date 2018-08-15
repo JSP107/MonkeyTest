@@ -1,0 +1,38 @@
+CH13  CSS應用在項目清單
+
+13-1 建立項目清單符號 list-style-type
+
+list-style-type: disc | circle | square | decimal | decimal-leading-zero | lower-roman | upper-roamn | lower-alpha | upper-alpha | lower-greek | lower-latin | upper-latin | hebrew | armenian | gergrian | none | inherit
+
+////////下列是項目符號的屬性值/////////////
+ disc | 預設 實心圓點
+ circle | 空心圓點 
+ square | 實心方塊 
+ none | 不顯示項目符號
+
+////////下列是編號符號的屬性值/////////////
+ decimal | 阿拉伯數字，從1開始計數
+ decimal-leading-zero | 阿拉伯數字，從01開始計數
+ lower-roman/upper-roamn | 小寫/大寫羅馬字母(i/I
+ )
+ lower-alpha/upper-alpha | 小寫/大寫英文字母(a/A
+ )
+ lower-greek | 小寫希臘字母
+ lower-latin/upper-latin | 小寫/大寫拉丁字母
+ hebrew/armenian/gergrian | 希伯來編號/雅美尼雅編號/喬治雅編號
+>>>ch13_1.html
+
+13-2 建立圖片項目符號 list-style-image
+list-style-image: none | url(filename) | intial | inherit
+
+>>>ch13_2.html
+
+13-3 項目符號與編碼位置 list-style-position
+list-style-position: inside | outside | intial | inherit
+>>>ch13_3.html
+
+13-4 簡易表示法 list-style
+可以設定所有的項目清單屬性，使用上依序設定下列屬性值
+list-style-type list-style-position list-style-image
+上述的預設值分別是 disc outside none 使用時屬性間需用空格隔開，如果某個屬性值使用預設可省略
+>>>ch13_4.html

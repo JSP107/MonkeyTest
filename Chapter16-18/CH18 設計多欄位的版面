@@ -1,0 +1,213 @@
+CH16 將CSS應用在表格資料
+16-1 表格標題 caption-side: top | buttom | inherit;
+
+top: 預設 表格標題在表格上方
+button 表格標題在表格下方
+6-8 <caption> 建立表格標題的位置
+>>>ch16_1.html ch16_2.html
+
+16-2 表格底色的設計
+>>>ch16_3.html ch16_4.html
+
+16-3 表格框線的設計
+每個表格都有外框線，整體表格也有一個，可以分開設定
+>>>ch16_5.html
+
+16-4 儲存格框線的距離 border-spacing: length [length];
+
+length : 定義長度，只有一個 水平垂直距離相同，兩個 第一個是水平 第二個是垂直 
+>>>ch16_6.html ch16_7.html
+表格的框線模式有兩種
+1. 預設是 separate 儲存格與儲存格間，或儲存格跟表格外框線之間皆有一個距離，稱為 border-spacing
+2. collapse Ref 16-7
+
+16-5 儲存格內容加上內邊距 padding
+將儲存格的內容視為內容盒子，因此將內邊距的概念用在儲存格內，由ch16_7.html 可以看見文字與儲存格間沒有空隙，這是因為沒有設內邊距，相當於padding是0
+padding-top
+padding-right
+padding-button
+padding-left
+padding 簡易表示法 1-4
+>>>ch16_8.html
+
+16-6 顯示或隱藏空白的儲存格 empty-cells: hide | show | inherit;
+
+hide 不顯示內容 框線 底色
+show 預設 顯示框線 底色
+>>>ch16_9.html ~ ch16_12.html
+
+
+16-7 表格框線的模式 border-collapse: separate | collapse | inherit;
+設計表格框線是否與儲存格框線合併
+
+separate 預設 表格框線與儲存格框線分開
+collapse 表格框線與儲存格框線合併>>>造成border-spacing設定不具意義
+>>>ch16_13.html
+
+16-8 儲存格內容排版
+預設環境儲存格的內容是 置中對齊 可以利用12-1 text-align 套用到表格內 建立不同對齊的方式
+>>>ch16_14.html 16行 text-align:left;
+
+16-9 表格版面的排版 table-layout:auto | fixed | inherit;
+
+auto 預設 表格的寬度會依儲存格內容寬度而定，系統會自動配置足夠空間，只要瀏覽器夠寬內容就不會分行顯示
+
+fixed 可以設定固定寬度
+>>>ch16_15.html
+
+
+CH17 設計漸層效果
+17-1 線性漸層 linear-gradient(direction, color stop, ... ,color stop)
+設定色彩重某個方向往另一個方向不同色彩線性漸層的變化
+direction 色彩方向 可用 角度 或 英文 表達
+順時針方向--->
+to top/0deg 
+45deg 
+to right/90deg 
+135deg 
+to button/180deg 
+225deg 
+to left/270deg 
+315deg 
+
+上到下： to bottom/180deg
+下到上： to top/0deg
+左到右： to right/90deg
+右到左： to left/270deg
+
+設定對角方式的線性變化
+右下往左上 to top left
+左下往右上 to top right
+右上往左下 to butom left
+左上往右下 to buttom right
+不一定是45度角，只有區塊是正方形時
+
+colr stop 色彩停駐點，如果只有2個點之間的顏色變化，直接設定 起點的顏色 跟 終點的顏色 如果多於2個顏色，中間點的顏色需要同時指定色彩和位置
+位置設定的方式 起點是0％ 終點是100％ 顏色和位置中間要空一格 yellow 30% >>>表示30％的位置顏色是黃色
+顏色多於2個又不指名顏色位置，會均等分處理
+>>>ch17_1.html ~ ch17_3.html
+
+17-2 放射狀漸層 radial-gradient(shape length position, color stop, ... , color stop)
+設定色彩從某一點以圓形或橢圓形往四周不同色彩放射狀漸層變化
+
+shape 色彩放射的形狀 省略會依照尺寸自行判斷 可用圓形circle 或橢圓 ellipse
+
+length 可以直接使用關鍵字或指定尺寸
+closest-side 由圓中心或橢圓中心往最近的方塊邊漸層
+farthest-side 由圓中心或橢圓中心往最遠的方塊邊漸層
+closeset-corner 由圓中心或橢圓中心往最近的方塊角漸層
+farthest-corner 由圓中心或橢圓中心往最遠的方塊角漸層
+
+長度設定參考附錄D 如果是圓形可以指定長度數值，須留意是shape length 之間是空一格
+
+例1 設定圓漸層，漸層半徑50px
+radial-gradient(circle 50px,yellow,red)
+例2 設定橢圓漸層，漸層半徑水平軸250px 垂直軸100px
+radial-gradient(ellipse 250px 100px,yellow,red)
+省略長度，預設使用farthest-corner
+
+position 預設使用中心點往外漸層，也可用top right buttom left 或數值 ％值方式設定中心點
+
+color stop 使用方法與前一節相同
+>>>ch17_4.html ch17_5.html
+
+17-3 重複線性漸層 repeating-linear-gradient()
+使用方法同 linear-gradient()函數，可以重複多少次視 起始色彩停駐點 至 結束色彩停駐點 的長度而定
+想重複五次 設定20% 想重複四次 設定25%
+>>>ch17_6.html ch17_7.html
+
+17-4 重複輻射性漸層 repeating-radial-gradient()
+使用方法同 radial-gradient()函數，可以重複多少次視 起始色彩停駐點 至 結束色彩停駐點 的長度而定
+想重複五次 設定20% 想重複四次 設定25%
+>>>ch17_8.html ch17_9.html
+
+CH18 設計多欄位的版面
+18-1 設定欄位數量與寬度 columns
+18-1-1 設定欄位數量 column-count:auto | count | inital | inherit;
+
+auto 預設 基本是一個欄位 但是會因其他屬性值 如 column-width 而調整
+
+count 欄位的數量
+>>>ch18_1.html 第八行 設定輸出2個欄位
+>>>ch18_2.html 改成column-count:auto;
+
+18-1-2 設定欄位寬度 column-width: auto | 寬度 | inital | inherit;
+
+auto 預設 基本是一個欄位 但是會因其他屬性值 如 column-width 而調整
+
+寬度：欄位的寬度，這邊是最適的寬度，不是絕對寬度，瀏覽器會依照目前視窗寬度做適度地調整
+>>>ch18_3.html 第八行 column-width:150px;
+>>>ch18_4.html 改成auto
+
+18-1-3 欄位數量跟寬度檢簡易表示法
+column: auto | column-count column-width | inital | inherit;
+>>>ch18_5.html line-height 屬性 設定行與行的間距
+
+18-2 設定欄與欄的間距 column-gap: normal | 間距值 | inital | inherit;
+
+normal 預設 各瀏覽器有不同的設定值 W3C建議是 1 em
+
+間距值 直接指定一個數值
+>>>ch18_5.html
+
+18-3 設定欄與欄界線的屬性 column-rule 
+18-3-1 欄界線的種類 column-rule-style: none | hidden | dotted | dashed | solid | double | groove | ridge | inset | outset | inital | inherit;
+
+none 表示沒欄界線，其他屬性值與border-style屬性值相同
+>>>ch18_7.html
+
+18-3-2 欄界線的顏色 column-rule-color:顏色 | intial | inherit;
+>>>ch18_8.html
+
+18-3-3 欄界線的寬度 column-rule-width: medium | thin | length | inital | inherit;
+
+medium 預設 中等寬度
+thin 薄寬度
+think 厚寬度
+length 定義寬度
+<<<ch18_9.html ch18_10.html
+
+18-3-4 欄界線屬性的檢視表示法 column-rule: column-rule-style | column-rule-color | column-rule-width | inital | inherit;
+>>>ch18_11.html
+
+18-4 跨欄顯示 column-span:none | all | inital | inherit;
+
+none 預設 不做跨欄顯示
+
+all 做跨欄顯示
+>>>ch18_12.html 注意第十四 二十行
+
+18-5 設定欄位高度 column-fill:balance | auto | inital | inherit;
+
+balance 預設 將內容平均分割
+
+auto 前方欄位填完，再填下一個欄位，會發生前面欄位填滿，後方欄位可能空下來的情形
+>>>ch18_13.html ch18_14.html
+
+18-6 換欄或換頁
+瀏覽器顯示網頁內容，會依據欄位寬度 數量 網頁內容或一些先前的小節設定 自動換欄或換頁
+
+18-6-1 在特定元素(也可想成內容盒子)之前換欄（頁）break-before:auto | always | avoid | left | right | page | column | avoid-page | avoid-column;
+
+auto 預設 瀏覽器自動調整
+always 在特定位置換欄(頁)
+avoid 在特定位置不換欄(頁)
+left 換頁，設定下一頁在左頁
+right 換頁，設定下一頁在右頁
+page 在特定位置換頁
+column 在特定位置換欄
+avoid-page 在特定位置不換頁
+avoid-column 在特定位置不換欄
+>>>ch18_15.html 注意13行的換欄輸出設定 還有	22 27行
+
+18-6-2 在特定元素(也可想成內容盒子)之後換欄（頁) break-after:auto | always | avoid | left | right | page | column | avoid-page | avoid-column;
+
+與18-6-1用法同
+>>>ch18_16.html 注意13行
+
+18-6-3 可設定某個元素的動作 break-inside:auto | avoid | inital | inherit;
+
+auto 預設 瀏覽器會自行判斷是否換欄或換頁
+avoid 在特定元素(也可想成內容盒子)不換欄或換頁
+>>>ch18_17.html 
+

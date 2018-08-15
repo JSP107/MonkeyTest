@@ -1,0 +1,199 @@
+CH30 HTML Canvas 繪圖和動畫
+HTML5 新增元素 Canvas 配合JS方法 在網頁內繪製直線 矩形 圓形 字元和圖像 甚至簡單的動畫
+
+30-1 建立Canves 的繪圖環境
+<canvas>其實是HTML元素，目的是建立繪圖環境，可想成繪圖區 繪圖容器
+基本使用語法
+
+<canvas id="canvasId" width="xx" height="xx">文字區</canvas>
+
+id 繪圖區識別碼 width/height 繪圖區寬度高度 文字區可省略 一般用在瀏覽器不支援顯示訊息
+>>>ch30_1.html 
+<canvas>元素本身沒有繪圖能力，必須用JS呼叫Canvas API (Application Programming Interface)
+或稱canvas物件的方法(method)執行繪圖
+
+30-2 繪製矩形
+30-2-1 rect() strok()和strokeRect()
+rect(x, y, width, height)
+x是相對於繪圖區左上角的x軸距離
+y是相對於繪圖區左上角的y軸距離
+width是矩形狀的寬度
+heigth是矩形狀的高度
+stroke()是實際讓rect()產生矩形繪製框線，預設顏色是黑色，沒有stroke()，無法看到框線
+>>>ch30_2.html Ref 13 14 15 16
+>>>ch30_3.html  
+
+30-2-2 fillRect() 和 fillStyle()
+先前strokeRect()是繪製空矩形
+fillRect()繪製填滿的矩形
+fillStyle(value)
+value可能值如下
+	color：顏色 預設黑色 Ref 附錄E
+	gradient：可使用線性漸層或輻射漸層 30-5
+	pattern：使用圖樣物件
+>>>ch30_4.html Ref 17 19
+
+30-2-3 clearRect()
+清除區塊區間，使用格式與rect相同，清除指定區塊
+>>>ch30_5.html Ref 25 清除位置(60,60) 寬高(80,60) 
+
+30-3 繪製線條 是將繪圖區左上角視為坐標(0,0)往右可增加x軸值 往下增加y軸值
+30-3-1 繪製直線
+moveTo(x,y) //定義線條起點
+lineTo(x,y) //定義線條終點，如果繼續使用則原先終點變新線條起點
+繪製完成後與rect()一樣需要用stroke()上色
+>>>ch30_6.html 
+
+30-3-2 beginPath() 和 closePath()
+beginPath() 主要功能是開始一個新路徑，同時會清除先前記憶的線條資訊，但已經繪製好的圖案不受影響，此方法沒有參數，習慣上會在繪製線條前先加上這個方法
+
+closePath()則是可以關閉路徑，將目前繪圖點與原先繪圖點起點連線，如此可圍成圖案，此方法沒有參數。
+>>>ch30_7.html 
+
+30-3-3 線條寬度 lineWidth
+Canvas 預設線條寬度1px 可以用lineWidth設定 單位是px
+>>>ch30_8.html 
+
+30-3-4 fill()：將目前所繪製的路徑填滿，若所繪製的圖案尚未合起，他會主動從起點繪一條線到終點
+>>>ch30_9.html Ref 19
+
+30-3-5 lineCap：此屬性設定線條的端點樣式
+lineCap = "value"
+value值可能內容如下
+	butt 預設 線的端點是平的
+	round 線的端點是圓的 這會讓線條稍微長一點
+	square 線的端點是矩形 這會讓線條稍微長一點
+>>>ch30_10.html  
+
+30-3-6 lineJoin 此屬性可設定線條的交接點樣式
+lineJoin = "value"
+value值可能內容如下
+	miter 預設 尖的角
+	round 線的交接點是圓的
+	square 線的交接點是矩形 這會讓線條稍微長一點
+>>>ch30_11.html  
+
+30-4 繪製圓形或弧線 arc()方法
+30-4-1 繪製圓形
+arc(x, y, r, startangle, endangle)
+(x,y) 圓中心座標 r是半徑 startangle是起始角度一般設為0 endangle是結束角度可設為2*Math.PI
+>>>ch30_12.html  
+
+30-4-2 繪製弧線 同樣使用arc() 可以產生曲形，方法是結束角度不要設為"2*Math"
+			1.5*Math.PI
+1*Math.PI 					0
+			0.5*Math.PI
+>>>ch30_13.html  
+
+30-4-3 順時針弧線或逆時針弧線：逆時針增加一個true參數
+>>>ch30_14.html   
+>>>ch30_15.html  從1.24*Math.PI開始繪製曲形
+>>>ch30_16.html  將弧線接合
+
+30-4-4 實心圓的繪製 只要適度將fillstyle()和fill()應用在繪製完圓形後，就可以繪製實心圓
+>>>ch30_17.html
+
+30-4-5 arcTo() 連結2條交線的弧線
+arcTo(x1,y1,x2,y2,r)
+(x1,y1) 第一條交線的座標可以想成是控點座標
+(x2,y2) 第二條交線的座標可以想成是弧線終點座標
+r 是半徑
+>>>ch30_18.html
+
+30-5 色彩漸層效果處理
+30-5-1 線型漸層 ：首先建立漸層物件
+以下是建立方法
+createLinearGradient(x1,y1,x2,y2)
+(x1,y1) 線形漸層起點
+(x2,y2) 線形漸層終點
+
+如果y座標相同，表示左到右或右到左的線型漸層
+如果x座標相同，表示上到下或下到上的線型漸層
+若都沒有座標軸相同，點到點
+建立好線性漸層的起點跟終點，下一步是設定在這區間的色彩配置
+下列是建立色彩配置的方法
+addColorStop(value, "color")
+value值是色彩停駐點位置，在0-1之間 0是起點 1代表終點 想要有更多色彩，多設該色位置就好 color是顏色
+>>>ch30_19.html  4種漸層 每一漸層皆是2種色彩 前兩種是左右 後兩種是上下
+>>>ch30_20.html
+
+30-5-2 輻射漸層
+createRadialGradient(x1,y1,r1,x2,y2,r2)
+(x1,y1) 是輻射漸層起點 r1 起點半徑
+(x2,y2) 是輻射漸層終點 r2 終點半徑
+建立色彩配置與線性漸層相同
+addColorStop(value, "color")
+value值是色彩停駐點位置，在0-1之間 0是代表輻射漸層的中心 1代表輻射漸層的外圍點 想要有更多色彩，多設該色位置就好 color是顏色
+>>>ch30_21.html
+
+30-5-3 將漸層應用在矩形框線
+strokeStyle(value);
+value可能值
+	color 顏色值 預設黑 ref 附錄E
+	gradient 可用線性或輻射
+	pattern 使用圖樣物件
+>>>ch30_22.html ch30_23.html
+
+30-6 繪製文字
+30-6-1 font 此屬性可設定字型與字型大小 
+font = "font-style font-variant font-weight font-family font-size";
+	font-style 預設normal italic oblique
+	font-variant 預設normal small-caps
+	font-weight 預設normal bold bolder lighter
+	font-family 可選系統支援字型 Arial ...等
+	font-size 直接用數字
+
+30-6-2 fillText() 和 strokeText() 可以寫出文字
+fillText(text,x,y,maxWidth) 	//輸出實體文字 
+strokeText(text,x,y,maxWidth) 	//輸出輪廓文字
+>>>ch30_24.html
+
+30-6-3 文字輸出與漸層的應用 
+>>>ch30_25.html
+
+30-6-4 輸出文字置中對齊	textBaseline屬性設定文字垂直位置，格式如下
+textBaseline = top | middle | bottom | alphabetic | Hanging;
+top | 表示文字上緣對齊基準線
+middle | 表示文字中央(em區塊)對齊基準線
+bottom | 表示文字下緣對齊基準線
+alphabetic | 預設 表示文字基準線是正常位置
+Hanging | ？？？
+>>>ch30_26.html
+
+30-7 繪製圖像 drawImage() 方法繪製圖像 也可用來放大縮小圖像
+drawImagee(img,x,y) 
+	(x,y)是圖像座標起點，img是圖像，可用與原圖相同大小繪圖
+drawImagee(img,x,y,w,h)
+	(x,y)是圖像座標起點，img是圖像，w跟h分別是圖像寬度和高度
+drawImagee(img,sx,sy,sw,sh,x,y,w,h)
+	(sx,sy)是被複製圖像座標起點，img是圖像，(sw,sh)是被複製圖像寬度和高度，(x,y)是複製後圖像位置，w跟h分別是複製後圖像寬度和高度
+
+首先建立一個Image物件，設定圖像物件的路徑(URL)給Image物件
+var img = new Image();
+img.src = "圖像的URL";
+>>>ch30_27.html 建立時直接指定圖像寬度和高度
+>>>ch30_28.html 先顯示 建立繪圖區 將裁切好的圖片放在繪圖區
+
+30-8 建立簡單動畫
+1. 繪製動畫圖
+2. 讓動畫顯示一段時間，可使用setInterval()
+3. 刪除動畫圖，可用clearRect()或用白色再繪製一次
+4. 繪圖點一到新的位置，回到步驟一
+
+>>>ch30_29.html 每0.5秒執行一次 左右切換亮燈 左邊藍燈 右邊紅燈
+>>>ch30_30.html 動畫方塊左上角移動到右下角 每0.5秒移動一次
+
+30-9 位移和旋轉
+Canvas繪圖區建立後，預測原點是左上角 translate()方法可以位移原點位置，使用格式如下
+translate(x,y);
+x 是X軸座標移動距離 正值向右 負值向左
+y 是Y軸座標移動距離 正值向下 負值向上
+>>>ch30_31.html 繪製時針長條 先移動原點到繪圖區中央位置，在輸出一條指針
+
+rotate()功能是可以依照原點位置旋轉圖形，正值順時針，負值逆時針
+rotate(angle*Math.PI/180); angle 代表旋轉角度
+
+>>>ch30_32.html 動畫方塊左上角移動到右下角 每0.5秒移動一次 增描繪一條旋轉30度的時針長條
+
+>>>ch30_33.html 增加輸出時鐘數字 1
+>>>ch30_34.html 設計時鐘  

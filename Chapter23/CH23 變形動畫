@@ -1,0 +1,114 @@
+CH23 變形動畫 CSS3 提供 2D 3D 變形 透視圖法
+
+23-1 2D變形效果 transform: none | transform-function | initial | inherit;
+
+none 代表沒有變形
+transform-function
+移動：
+translate(x,y) 移動函數 設定x軸 y軸的移動距離，只有一個數值，表示y軸移動距離為0 translate(n,0)
+translateX(x) 移動函數 可設定x軸的移動距離
+translateY(y) 移動函數 可設定y軸的移動距離
+
+縮放：
+scale(x,y) 縮小或放大函數，原始物件尺寸為1 可設定x軸 y軸縮放倍率 如果只有一個數值 代表x軸y軸縮放倍率相同 
+scaleX(x) 縮小或放大函數，原始物件尺寸為1 可設定x軸縮放倍率
+scaleY(y) 縮小或放大函數，原始物件尺寸為1 可設定y軸縮放倍率
+
+旋轉：rotate(angle) 物件旋轉函數，如果是正值代表順時針，負值代表逆時針，最常用角度單位是deg rotate(45deg) 向右旋轉45度
+
+傾斜：
+skew(x,y) 傾斜函數 定義x軸 y軸的傾斜角度
+skewX(x) x軸傾斜函數 x軸的傾斜角度
+skewY(y) y軸傾斜函數 y軸的傾斜角度
+
+矩陣：matrix(a,b,c,d,e,f) 使用3*3的矩陣來變化座標 變形的基準點是物件中心(50%,50%)
+
+>>>ch23_1.html 物件以線性左右移動，留意物件位移量均是相較於原始物件的位置
+>>>ch23_2.html 以translateX取代translate
+>>>ch23_3.html ~ ch23_9.html
+
+23-2 2D變形的基準點 transform-origin:x-axis y-axis | initial |inherit;
+
+x-axis 定義基準點的x座標 可能值是 left center right length 或%
+y-axis 定義基準點的y座標 可能值是 top center buttom length 或%
+
+瀏覽器在執行2D變形時，變形的基準點是物件中心(50%,50%)，透過transform-origin可更改基準點
+>>>ch23_10.html Ref 21 ~ ch23_11.html
+
+23-3 3D變形效果 transform: none | transform-function | initial | inherit;
+
+3D變形效果的transform-function
+移動：
+translate3d(x,y,z) 移動函數 設定x軸 y軸的和z軸移動距離，z軸越大代表離眼睛越近，z軸 不可以 用百分比表示
+translateZ(z) 移動函數 可設定z軸的移動距離 不可以 用百分比%表示
+
+縮放：
+scale3D(x,y,z) 縮小或放大函數，原始物件尺寸為1 可設定x軸 y軸和z軸的縮放倍率
+scaleZ(z) 縮小或放大函數，原始物件尺寸為1 可設定z軸縮放倍率
+
+旋轉：rotate(x,y,z,angle) 物件旋轉函數，將基準點和(x,y,z)點連成一直線，正值表示順時針依此線旋轉，負值表示逆時針依此線旋轉
+rotate3d(x,y,z,45deg) 向右旋轉45度
+
+rotateX(angle)/rotateY(angle)/rotateZ(angle) 可設定沿x/y/z軸旋轉
+
+perspective 透視圖，可由此設定視點的距離
+
+matrix3d(n1,...n16) 使用4*4矩陣來變換座標
+
+*網頁呈現3D視覺效果時，常使用透視效果，適度使用translateX()函數控制元素呈現與瀏覽器畫面距離，以及利用perspective()函數控制視覺點與瀏覽器畫面距離，可呈現3D元素立體的效果
+
+Ａ：元素往(視覺點 眼睛方向)前移動 z軸的距離是負值 最後呈現元素是縮小
+Ｂ：元素往(視覺點 眼睛方向)後移動 z軸的距離是正值 最後呈現元素是放大
+視           元		  瀏.        元
+覺-----------素------- 覽	--------素
+點           呈		  器			呈
+             現		  畫			現
+        	 A		  面			B
+        	 		  <-z軸距離正值->
+        	<-z軸距離負值->		  
+|<-視覺距離perspetive()--->
+
+>>>ch23_12.html ～ ch23_17.html
+
+23-4 3D變形的基準點 transform-origin:x-axis y-axis z-axis| initial |inherit;
+
+x-axis 定義基準點的x座標 可能值是 left center right length 或%
+y-axis 定義基準點的y座標 可能值是 top center bottom length 或%
+z-axis 定義基準點的z座標 可能值是 length 或%
+如果只指定2個值，第三個值將是0
+
+瀏覽器在執行2D變形時，變形的基準點是物件中心(50%,50%,50%)，透過transform-origin可更改基準點
+>>>ch23_12.html ~ ch23_13.html
+
+23-5 設定透視圖視點距離 perspective: length | none | initial | inherit;
+
+length 元素距離視點的距離
+none 預設值 為0
+CSS 提供 視點距離屬性perspective 設定視點距離 與23-3所述的perspective()函數最大差別在 perspective()函數是用在元素本身 
+perspective屬性是設定子元素的視點距離
+
+>>>ch23_20.html 視點距離perspective的應用，16行設定視點距離0px 同時20行y旋轉角度是0deg 所以即使12行設定區塊底色是aqua 也會被19行子元素的底色黃色遮蓋
+>>>ch23_21.html Ref 19 20. ~ ch23_23.html
+
+23-6 透視圖的基準點 perspective-origin:x-axis y-axis | initial |inherit;
+
+x-axis 定義基準點的x座標 可能值是 left center right length 或%
+y-axis 定義基準點的y座標 可能值是 top center buttom length 或%
+
+瀏覽器在執行透視圖時，是以物件中心(50%,50%)為視點的基準點，透過perspective-origin可更改基準點
+>>>ch23_24.html Ref 17
+
+23-7 巢狀元素產生時子元素的處理 transform-style:flat | preserve-3d | initial | inherit;
+
+flat 預設 子元素將不保持父元素的3D特效，子元素以平面方式，投影到父元素上，因此父元素部分畫面將被子元素遮住
+preserve-3d 父元素的3D效果套用在子元素上，子元素部分畫面可能被父元素遮住
+>>>ch23_25.html ～ ch23_26.html Ref 20
+
+23-8 是否顯示背面內容 backface-visibility:visible | hidden | initial | inherit;
+
+visible | 預設 顯示背面資料 	>>>ch23_27.html Ref 18
+hidden | 不顯示背面資料		>>>ch23_28.html Ref 18
+
+動畫若以x軸或y軸旋轉時，當轉了180deg 會轉到背面 這時可以用這個屬性值設定是否顯示背面的資料
+
+

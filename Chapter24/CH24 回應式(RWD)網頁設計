@@ -1,0 +1,165 @@
+CH24 回應式(RWD)網頁設計
+Responsive Web Design
+
+24-1 游標 cursor:value;
+將鼠標設定成特別形狀
+>>>ch24_1.html 
+
+24-1 媒體查詢 Media Query
+
+CSS 提供針對不同的輸出工具套用不同的樣式表，一份HTML文件可同時供不同的載具使用，電腦螢幕 平板 手機...等
+螢幕輸出可以使用sans-serif字型 印表機列印時serif字型較佳 voice-family是為了有聽覺障礙的終端用戶設計使用，此外一般電腦螢幕瀏覽器可以設定較寬的視窗，手機螢幕瀏覽器的瀏覽寬高受到先天的限制
+
+24-2-1 媒體類型(media types)
+all：所有媒體
+print：預覽列印或印表機的列印搞
+screen：電腦螢幕 平板或Android(iOS)系統的智慧型手機螢幕
+speech：音訊合成裝置
+
+24-2-2 媒體特性(media features)
+color：輸出設備(螢幕)每個色彩的位元數(bits)
+color-index：輸出設備(螢幕)可以輸出的色彩數量
+height：瀏覽器視窗的高度
+width：瀏覽器視窗的寬度
+aspect-ratio：瀏覽器視窗寬度與高度的比
+monochrome：黑白螢幕每個色彩的位元數(bits)
+resolution：輸出設備(螢幕)的螢幕解析度，單位是dpi或dpcm
+以上所有屬性都可加上 前綴詞 "min-" 或 "max-"表示最小或最大
+
+例如min-width 表示瀏覽器視窗的最小寬度 max-height表示瀏覽器視窗最大高度
+
+orientation：輸出設備(螢幕)的方向，可能值是landscape(水平)或portrait(垂直)
+scan：輸出設備(螢幕)的掃描方式，可能值是interlace(交錯式)或progressive(循序式)
+grid：輸出設備(螢幕)的掃描方式，可能值是1(網格grid)或0(點陣bitmap)
+
+24-2-3 媒體查詢設計使用 
+@media media-type and (media-feature) ... and (media-feature){
+	...
+	...
+}
+
+實例1 輸出設備是印表機print 使用serif 字型 藍色
+@media print {
+	body {font-family:serif; color:blue;}
+}
+實例2 輸出設備是螢幕screen 使用sans-serif 字型 紅色
+@media screen {
+	body {font-family:sans-serif; color:blue;}
+}
+實例3 設定視窗寬度小於或等於480px 背景色為粉紅色
+@media screen and (max-width:480px){
+	body {background-color:pink;}
+} 
+>>>ch24_2.html ~ ch24_3.html
+實例4 設定輸出設備(螢幕)是水平(landscape)顯示時，h1是藍色
+＠media screen and (orientation:landscape){
+	h1(color:blue;)
+}
+實例5 設定輸出設備(螢幕)是垂直(portrait)顯示時，h1是綠色
+＠media screen and (portrait:landscape){
+	h1(color:green;)
+}
+
+24-2-4 媒體查詢設計使用link
+使用link元素讀取外部媒體輸出的樣式表時，需要在link元素內增加媒體屬性，如下 
+<link rel="stylesheet" type="text/css" media="媒體屬性值" href="URL">
+>>>ch24_4.html Ref 6行 screenstyle.css
+
+24-2-5 媒體查詢設計使用 @import
+CSS允許使用 "@import url(URL)" 將外部樣式表匯入
+>>>ch24_5.html Ref 7行
+
+24-3 選擇器完整說明
+11-24 介紹常用的選擇器各種應用說明
+
+.class 				範例 .ex 	--->所有 class="ex" 都套用
+#id    				範例 #name 	--->所有 id="name" 都套用
+*      				範例 *    	--->所有元素都套用
+element				範例 p 		--->所有<p>元素套用
+element,element 	範例 p, div 	--->所有<p>元素和<div>元素套用
+element element 	範例 div p 	--->所有<div>元素內的<p>元素套用
+element>element 	範例 div>p 	--->所有<p>元素的父元素是<div>時套用
+element+element 	範例 div+p 	--->所有<p>元素緊跟在<div>元素後面時套用
+element~element 	範例 p~ul 	--->所有<ul>元素緊跟在<p>元素後面時時套用
+
+[attribute] 		範例[target] 		--->所有元素有target屬性時套用
+[attribute=value] 	範例[target=xxx] 	--->所有元素有屬性target=xxx時套用
+[attribute~=value] 	範例[title~=xxx] 	--->所有元素有屬性內容包含xxx字串時時套用
+[attribute|=value]	範例[lang|=zh] 		--->所有元素有lang屬性值包含zh時套用
+[attribute^=value] 	範例a[href^="http"] 	--->所有<a>元素他的href屬性值內容包含http時套用
+[attribute$=value] 	範例a[href$=".xps"] 	--->所有<a>元素他的href屬性值內容以.xps結尾時套用
+[attribute*=value] 	範例a[href*="deepstone"] --->所有<a>元素他的href屬性值內容包含deepstone子字串時套用
+
+:active				範例 a:active		--->按一下超連結時套用
+:after				範例 h2:after		--->在每一個<h2>元素後面插入內容
+:before				範例 h2:before		--->在每一個<h2>元素前面插入內容
+:checked			範例 input:checked	--->所有被核取的<input>元素套用
+:disabled			範例 input:disabled 	--->所有無法使用(disable)的<input>元素套用
+:empty				範例 td:empty		--->儲存格內容是空的"<td></td>"就套用
+:enabled			範例 input:enabled 	--->所有可以使用(enable)的<input>元素套用
+:first-child		範例 p:first-child	--->所有<p>元素，條件是必須是其父元素的第一個子元素套用
+::first-letter		範例 p::first-letter --->選取所有<p>元素第一個字母
+::first-line		範例 p::first-line	--->選取所有<p>元素第一行
+:first-of-type		範例 p::first-of-type --->同一個父元素中第一個出現的<p>元素套用樣式
+:foucs				範例 input:foucs		---><input>元素獲得焦點(foucs)時套用
+:hover				範例 h1:hover		--->滑鼠游標在<h1>元素時套用
+:in-range			範例 input:in-range	--->值在<input>元素中設定範圍時套用
+:invalid			範例 input:invalid	---><input>元素的值是無效時套用
+:lang(language)		範例 h1:lang(fr)		--->h1的語言屬性值是法文時套用
+:last-child			範例 p:last-child	--->所有<p>元素，條件是必須是其父元素的最後一個子元素套用
+:last-of-type		範例 p::last-of-type --->同一個父元素中最後一個出現的<p>元素套用樣式
+:link				範例 a:link			--->尚未被點選的超連結套用
+:not(selector)		範例 :not(h1)		--->所有非<h1>元素套用
+:nth-child(n)		範例 tr:nth-child(2n) --->表格偶數行套用
+:nth-last-child(n)	範例 p:nth-last-child(2) --->由後往前數第二個<p>屬性套用 ？
+:nth-last-of-type(n)	範例 p:nth-last-of-type(2) --->由後往前數第二個<p>屬性套用 ？
+:nth-of-type(n)			範例 p:nth-of-type(2)	--->相同父元素中所有第二個<p>元素套用
+:only-of-type			範例 p:only-of-type		--->元素中可能有許多子元素，其子元素中<p>是唯一的，套用這個唯一的<p>元素
+:only-child				範例 p:only-child		--->每一個<p>元素是他的父元素中唯一的子元素套用
+:optional 				範例 input:optional		--->在<input>元素中，沒有必要(required)屬性時套用
+:out-of-range			範例 input:out-of-range	--->值不在<input>元素中設定範圍時套用
+:read-only				範例 input:read-only		--->在<input>元素中屬性是readonly時套用
+:read-write				範例 input:read-write	--->在<input>元素中屬性不是readonly時套用
+:required				範例 input:required		--->在<input>元素中屬性是required時套用
+:root					範例 :root				--->HTML 文件的根元素套用
+::selection				範例 ::selection			--->所有使用者選取的範圍皆套用
+:valid					範例 input:valid			--->允許有效值的所有<input>元素皆套用
+:visited				範例 a:visited			--->選取所有拜訪過的元素
+
+>>>ch24_6.html 
+
+24-4 回應式網頁設計
+根據不同載具螢幕尺寸調整，不需要放大縮小拉來拉去
+24-4-1 網頁實例 ch24_7.html
+24-4-2 設計回應式網頁的基本觀念
+1. 使用HTML設計網頁內容
+2. 為手機瀏覽螢幕設計CSS樣式表
+3. 為平板瀏覽螢幕設計CSS樣式表
+4. 為PC瀏覽螢幕設計CSS樣式表
+
+24-4-3 viewport 螢幕解析度，會因所使用設備有不同的值，設計時須在 <meta> 內
+
+<meta name ="viewport" content="width=deivce-width, initial-scale=1.0">
+
+<meta> 的viewport將可以告訴瀏覽器如何控制頁面尺寸與比例
+width=device-width 可以獲得瀏覽設備的寬度解析度(pixel)
+initial-scale=1.0 可以設定在網頁插入圖案時的初始縮放比例
+
+”ＲＷＤ設計注意原則“
+由於瀏覽螢幕寬度是不固定的，不要採用固定寬度，應用百分比%寬度
+圖像寬度不要大於瀏覽螢幕寬度，以免造成需水平捲動瀏覽網頁
+由於每一種設備的解析度不同，設計網頁不能只考慮一種螢幕寬度
+使用絕對定位要特別小心，特別是大尺寸的絕對值，一不小心就會落到瀏覽顯示區外面
+>>>Ref ~21行
+
+24-4-5 導覽區套用樣式表  Ref 83-90 行
+
+24-4-6 文章區套用樣式表 Ref 91-96 行
+
+24-4-7 側邊欄套用樣式表 Ref 97-106 行
+
+24-4-8 其他設計觀念 Ref 8-11 padding 和 border 已經包含在元素寬度和高度內 12-16 row 區塊下方插入空格 同時取消左邊的文繞圖 70-73 設定圖片呈現最大寬度是100%螢幕寬
+
+24-4-9 完整程式內容 
+
+

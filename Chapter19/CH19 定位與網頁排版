@@ -1,0 +1,131 @@
+CH19 定位與網頁排版 (HTML4.01版或更早排版知識)
+19-1 設定盒子大小
+10-6 區塊層級盒子block box (區塊層級或區塊) 與 行內層級盒子inline box（內層級）width height 屬性設定區塊盒子的寬度跟高度
+>>>ch19_1.html
+
+19-2 設定盒子大小的極限
+max-width:none | 長度 | % | inital | inherit;
+
+none 預設 不設定極寬值
+長度 參考附錄D
+％ 用百分比設定極寬值
+max-height：區塊高度極大值
+min-width：區塊寬度極小值
+min-height：區塊高度極小值
+>>>ch19_2.html
+
+19-3 display屬性
+區塊層級block level與 行內層級inline level 皆有預設的顯示層級，但可用display更改顯示層級
+
+display:inline | block | inline-block | inline-table | list-item | run-in | table | none | inital | inherit;
+
+inlin 將元素宣告成行內層級 inline level 
+block 將元素宣告成區塊層級 block level
+inline-block 將元素本身宣告成行內層級inline level 區塊內部則宣告成區塊層級block level
+inline-table 將元素宣告為行內層級 inline level的表格
+list-item 將元素宣告為類似<li>元素
+run-in 將元素宣告為區塊層級或行內層級，是元素內容而定
+table/table-caption.... 將元素宣告為類似<table>/<caption>...元素
+none 不顯示 
+CSS內，display屬性仍有其他用途
+>>>ch19_3.html ~ ch19_4.html
+
+19-4 定位position: static | absolute | fixed | relative | initial | inherit;
+設定區塊盒子block box 的編排方式或稱定位
+
+static 以正常順序(normal flow) 在區塊盒子是依在HTML文件碼的順序由上往下顯示，
+block box 1
+block box 2
+block box 3
+如果是行內層級則是水平方式由左至右顯示
+inline box 1 inline box 2 inline box 3
+
+absolute 定位方式是相對於瀏覽器視窗的左上角，但是視窗捲動時，此方塊將隨著捲動，相對實例 Ref 19-4-2
+
+fixed 定位方式是相對於瀏覽器視窗的左上角，但視窗捲動時，此方塊不捲動，相對實例 Ref 19-4-3
+
+relative 相對於正常位置的定位，可以使用top right bottom left 顯示位置位移的量
+top: auto | length | % | initial | inherit;
+
+auto 由瀏覽器計算上邊界距離
+length 參考附錄D 這裡允許負值
+% 用百分比計算上邊界距離
+
+19-4-1 position 屬性值是relative的程式實例
+>>>ch19_5.html ~ ch19_7.html第九跟十一行
+>>>ch19_8.html 第七行宣告<h1>行內層級 第十一行定是postion為relative 第十二行定義偏移量
+>>>ch19_9.html
+
+19-4-2 postion 屬性值是absolute的程式實例
+也可使用top right bottom left 上右下左邊界 位移觀念是相對於瀏覽器視窗的左上角 隨視窗捲動
+>>>ch19_10.html
+
+19-4-3 postion 屬性值是fixed的程式實例
+與absolute不同之處在於不隨視窗捲動
+>>>ch19_11.html
+
+19-4-4 綜合應用
+10-7 網頁佈局的基本架構
+>>>ch19_12.html
+
+19-5 設定與解除文繞圖
+設定元素內容包圍前面的圖片，這節所說的文繞圖功能不局限於圖片，也可以是區塊層級或行內層級的盒子
+
+19-5-1 設定文繞圖 float:none | left | right | initial | inherit;
+
+none 預設 不做文饒圖功能
+left 執行文繞圖 圖片在左>>>ch19_14.html 第七行
+right 執行文繞圖 圖片在右>>>ch19_13.html 第七 十五行
+>>>ch19_15.html 應用在表格上
+
+19-5-2 清除文繞圖 clear:none | left | right | both | initial | inherit;
+想在中途中止文繞圖功能
+
+none 預設 同意文饒圖功能
+left 圖片在左時，不同意左邊執行文繞圖 
+right 圖片在右時，不同意右邊執行文繞圖
+both 不同意左邊或右邊有文繞圖
+>>>ch19_16.html 第12 22行
+>>>ch19_17.html textaroundbreak{clear:both;}
+
+19-6 堆疊順序 z-index:auto | number | initial | inherit;
+設定彼此的堆疊順序 數值越大 越在上層
+
+auto 預設 數值與其父元素相同
+number 直接設定堆疊數字 接受負值
+>>>ch19_18.html ch19_19.html
+
+19-7 顯示或隱藏元素 visibility: visibility | hidden | collapse | initial | inerit;
+
+visibility 顯示元素
+hidden 不顯示元素，但仍佔據空間，不想佔據空間要加上 display:none 屬性
+collapse 用在表格，可以隱藏某行或某欄
+>>>ch19_20.html ch19_21.html 第七行 display:none
+
+19-8 用box調整元素呈現方式 object-fit:none | contain | cover | fill | initial | inherit;
+設定圖片在盒子box的呈現方式
+
+none 預設 圖片保持原先尺寸
+contain 圖片需保持原比例全部顯示，但可能無法填滿盒子
+cover 圖片須保持原比例，同時須填滿盒子，所以可能部分元素不顯示
+fill 圖片填滿盒子，但圖片不保持原比例
+＊目前只有 Opera 瀏覽器有支援
+>>>ch19_22.html 
+
+
+19-9 垂直對齊 vertical-align:baseline | sub | super | top | text-top | middle 
+ bottom | text-bottom | length | % | inherit;
+
+ baseline 預設 元素放在父元素基線上
+ sub 垂直對齊本文下標
+ super 垂直對齊本文上標
+ top 元素頂端與行中最高元素的頂端切齊
+ next-top 元素頂端與父元素的頂端切齊
+ middle 元素放在父元素垂直置中
+ bottom 元素底端與最低元素底端切齊
+ text-buttom 元素底端與父元素底端切齊
+ length 參考附錄D
+ % 用line-height百分比設定高於或小於 允許負值
+ >>>ch19_23.html
+
+

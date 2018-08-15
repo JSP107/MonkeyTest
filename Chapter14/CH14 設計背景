@@ -1,0 +1,89 @@
+CH14 設計背景
+
+14-1 透明色
+14-1-1 rgba()函數 rgba(red,green,blue,alpha) 0.0-1.0(完全不透明)
+14-1-2 hsla()函數 hsla(hue,saturation,lightness,alpha)
+14-1-3 透明度opacity: value | inherit
+value 介於0.0 ~ 1.0間的數字
+>>>ch14_1.html
+
+14-2 背景顏色 background-color
+background-color: color_name | hex_number | rgb_number | transparent
+
+color_name: 以顏色名稱作為背景色
+hex_number: 十六進位的顏色背景值 例如#ff00ff
+rgb_number: 以rgb()函數設定背景色 rgb(ff,00,ff)
+transparent: 預設 背景顏色為透明
+>>>ch14_2.html ch14_3.html
+
+14-3 背景圖像background-image
+預設是將圖片從左上角往水平和垂直方向重複放置
+background-image: url(URL) | none | inherit
+
+url: 圖片的URL
+none: 不顯示背景圖像
+>>>ch14_4.html
+
+CSS允許有多個背景圖案，此時會有層次問題，先放的圖片會在圖層的上方，在安置時url(URL)間以逗號 , 分隔開
+>>>ch14_5.html ~ ch14_7.html
+
+14-4 背景是否重複出現background-repeat
+background-repeat: repeat | repeat-x | repeat-y | no-repeat | space | round | inherit
+
+repeat | 預設 圖片將在水平方向與垂直方向重複出現
+repeat-x | 圖片將在水平方向重複出現
+repeat-y | 圖片將在與垂直方向重複出現
+no-repeat | 圖片只顯示一次
+space | 圖片將水平和垂直方向重複出現時，會自動調整間距，讓圖片完整呈現
+round | 圖片將水平和垂直方向重複出現時，會自動調整大小，讓圖片完整呈現
+>>>ch14_8.html ch14_8_1.html ch14_8_2.html
+
+14-5 背景圖片位置 background-position:value 將圖片放在指定位置
+value 的值可以是
+
+left/right/center  top/center/button
+預設是0% 0% 如果只設定一個關鍵字 另一個會是center
+圖片的垂直位置會與目前顯示資料有關，而不是與視窗高度有關聯
+圖片的水平位置則會與視窗寬度有關
+
+x % y %
+用百分比方式設定值 左上角 0% 0% 右下角 100% 100% 只訂定一個 另一個是一定是50%
+
+xpos ypos
+第一個值是水平位置 第二個值是垂直位置 可使用網頁長度單位 例如 像素px 只設定一個另一個是50％ 可以混用px 與 position值
+
+>>>ch14_9.html ~ ch14_12.html
+
+14-6 背景圖片大小 background-size
+background-size: auto | length | percentage | cover | contain
+
+auto | 預設 背景圖依本身的寬高顯示，若空間不夠顯示部分圖像
+length | 設定圖片寬高 第一個值是寬度 第二個是高度 只設定一個，另一個會被設為auto
+percentage | 以父元素的百分比來設置圖片的寬與高，第一個值是寬度 第二個是高度 只設定一個，另一個會被設為auto
+cover | 可能造成部分圖像不再背景區
+contain | 圖像會依背景大小自行調整覆蓋整個背景區
+
+>>>ch14_13.html ch14_14.html
+
+14-7 背景圖片是否隨內容捲動 background-attachment
+background-attachment: scroll | fixed | local | intial | inherit
+
+scroll 預設，背景圖會隨頁面捲動
+fixed 背景圖不會隨頁面捲動
+local 一般使用與scroll相同，但在inframe顯示時，背景圖則不捲動
+>>>ch14_15.html
+
+14-8 背景簡易表示法 background 
+可以設定以下屬性值
+background-color background-image background-position background-size background-repeat background-attachment 
+////以下兩個屬性需要CSS方塊盒子(box model觀念//////
+background-origin 設定背景圖片顯示的基準點 ref 15-5-2
+background-clip 設定背景圖片的顯示區域 ref 15-5-1
+
+使用時各個屬性要用空格分開，如果背景位置與圖片大小同時存在，彼此用 "/" 符號隔開
+30px 40px/80px 80px
+>>>圖片距離做邊界30px 上邊界40px 圖片寬與高 80px
+center/400px
+>>>背景位置置中 圖片寬度400px
+
+>>>ch14_16.html ch14_17.html

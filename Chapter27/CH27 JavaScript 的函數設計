@@ -1,0 +1,67 @@
+CH27 JavaScript 的函數設計
+所謂函數(function)就是一系列指令敘述所組成的，目的有兩個
+
+1. 當再設計一個大型程式時，若能將程式依功能，將其分割成較小的功能，然後再依照這些較小功能要求撰寫函數程式，如此，程式簡單化，同時最後程式偵錯也變得容易
+
+2. 在一個程式中，也許會發生某些指令被重複書寫在許多不同地方，若我們能將這些重複的指令撰寫成一個函數，需要用時再加以呼叫，如此，不僅減少編輯程式的時間，同時更可使程式精簡 清晰 明瞭
+
+A();			function A {
+				...
+				}
+當程式呼叫函數，JavaScript會自動跳到被呼叫的函數上執行工作，執行完後回到原先程式執行位置
+JS程式語言的功能與其他高階語言使用目的不同，對於函數使用功能有它的特殊名詞
+
+1. 一般函數(general function)
+這個函數和其他高階語言的函數觀念是一樣的，有的程式語言將函數稱作 副程式
+2. 事件處理函數(event function)
+使用者在操作網頁時，可能會觸發一些動作，針對這些動作所設計的事件處理程式稱作 事件處理函數
+例如 
+瀏覽網頁，網頁內容下載後會觸發onload事件 又或者 按一下某一元素，會觸發 onclick事件 我們可以針對此設計事件處理程式
+JS也提供一系列的內建函數(build in function)，有些內建函數是全域內建函數表示所有物件(object)皆可以使用，有些內建函數是適用某些特定物件(object)，在JS中稱這些屬於某物件的內建函數為方法(method) 例如 sort()
+
+27-1 基本函數設計
+function funName (parameter1, ... , parameterN){
+	系列statements;
+}
+parameter 是傳遞給函數的值，如果有傳遞參數時，所傳遞參數的順序一定不能錯誤
+>>>ch27_1.html
+
+27-2 設計一個可以傳遞參數的函數
+>>>ch27_2.html Ref 15
+>>>ch27_3.html 不用onclick事件 直接用超連結特性
+<a href="javascript:sumFun(20,30);">x +y </a>
+
+27-3 函數呼叫同時有傳回值
+function funName (parameter1 , ... , parameterN){
+	系列statements;
+	return 傳回值; //函數末端設定
+}
+>>>ch27_4.html ch27_5.html
+
+27-4 全域變數與區域變數
+適當的使用變數名稱很重要，某變數計畫讓整個HTML文件皆可使用
+-->全域變數(global variable) 一般宣告在<script>內，但是在函數外的變數，除了這個函數 程式內的函數也可以使用
+
+區域變數(local variable) 在<script> 同時也在函數(function)內宣告的變數，影響範圍僅限在所宣告含數內
+>>>ch27_6.html Ref 13 msg global variable
+>>>ch27_7.html Local Variable
+
+27-5 函數被定義在物件內
+25-6-3 介紹了物件(object)基本定義，與存取物件的方法，物件導向的程式觀念，在定義物件中可能會含有函數情形
+
+var student = {
+	firstName:"Peter",
+	lastName:"Hung",
+	id=1234,
+	stuName:function(){					//函數存在物件內
+		return this.firstName + " " + this.lastName;
+	}
+};
+
+有時候在物件宣告時，物件內的屬性有函數，在JS可將函數想成方法或是屬性，其實它既是物件也是屬性，此時可用下列方式存取物件
+
+如果想存取stuName屬性 使用 getname = stuName();
+>>>ch27_8.html Ref 10-19
+如果漏了() 變成 studnet.stuName 將得到函數的定義
+>>>ch27_9.html Ref 19
+

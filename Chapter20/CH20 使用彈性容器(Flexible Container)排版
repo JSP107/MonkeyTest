@@ -1,0 +1,111 @@
+CH20 使用彈性容器(Flexible Container)排版
+ＮＥＷ排版觀念 相較於Ch19 m/4
+position 或 float 更簡潔
+
+20-1 Flex Container 基本觀念
+此排版觀念就是建立一個彈性容器 flex content 在此容器內建立彈性物件，可將此物件想成網頁區塊 box 然後使用 flex-directino屬性設定網頁區塊排列方式
+
+如果flow-direction屬性值是 row 彈性物件(網頁區塊)排版方式如下
+----彈性區塊容器flex container---->>>>
+彈性物件flex item1 彈性物件flex item2 ...彈性物件flex item(n)
+如果flow-direction屬性值是 column 上到下
+
+20-2 彈性區塊容器的宣告 display:flex | inline-flex;
+在CSS3 新增功能是可以宣告彈性區塊
+
+flex 將此元素設為區塊層級(block level)的彈性區塊容器
+inline-flex 將此元素設為行內層級(inline level)的彈性區塊容器
+>>>ch20_1.html ch20_2.html 沒有填滿會出現空白
+
+20-3 設定版面方向 水平或垂直方向 flex-direction:row | row-reverse | column | column-reverse | initial | inherit;
+
+row 預設 版面區塊以水平方向由左到右編排
+row-reverse 版面區塊以水平方向由右至左編排
+column 版面區塊以垂直方向由上到下編排
+column-reverse 版面區塊以垂直方向由下到上編排
+>>>ch20_3.html ch20_4.html
+
+20-4 彈性區塊內有多行排列 flex-wrap:nowrap | wrap | wrap-reverse | initial | inherit;
+主要可以讓彈性容器內有多行版面，原則是一行放不下時，版面區塊會在新的一行輸出
+
+nowrap 預設 彈性容器只有一行
+wrap 彈性容器允許多行配置
+wrap-reverse 彈性容器允許多行配置，在第二行配置時，由反向方式配置
+>>>ch20_5.html ~ ch20_7.html
+
+20-5 直接設定排版方向和行數 flex-flow:flex-direction flex-wrap | initial | inherit;
+
+flex-direction Ref 20-3
+flex-wrap Ref 20-4
+>>>ch20_8.html 第七～十行
+
+20-6 版面區塊的排列順序 order:number | initial | inherit;
+以原始碼出現順序排列，order屬性可更改排序位置，較小的值優先排列，如果值相同則依照原始碼出現順序
+
+number 預設 0 可以由此設定正整數
+>>>ch20_9.html ch20_10.html
+
+20-7 增加版面區塊物件寬度 flex-grow:number | initial | inherit;
+將 版面區塊物件 放入 彈性容器時，如果區塊物件總寬度小於 彈性容器寬度時，將有留白產生，為了不要留白，可將個別版面區塊適度放大
+這個屬性可以設定留白分配佔比
+例如：留白是30px A物件的flex-grow 是1 B物件的flex-grow 是2 則A物件可以分1/3留白相當於10px B可以分2/3留白 相當於20px
+
+number 預設 0 相較於其他版面區塊物件的放大佔比
+>>>ch20_11.html
+
+20-8 縮減版面區塊物件寬度 flex-shrink:number | initial | inherit;
+將 版面區塊物件 放入 彈性容器時，如果區塊物件總寬度大於 彈性容器寬度時
+排版觀念有 出血 狀況產生 可以自行設定 實際上瀏覽器會依個版面區塊寬度成比例調整
+
+number 預設 0 相較於其他版面區塊物件的縮小佔比
+>>>ch20_12.html
+
+20-9 調整前的區塊物件寬度 (W3C建議採用) flex-basis:number | auto | initial | inherit;
+
+number 長度單位 Ref 附錄D
+
+auto 預設 將依據內容設定寬度
+>>>ch20_13.html 使用flax-basic取代width
+
+20-10 增減區塊寬度的簡易表示法 flex:flex-grow flex-shrink flex-basic | auto | initial | inherit;
+
+flex-grow flex-shrink flex-basic Ref 20-7~20-9
+auto 相當於 flex-grow flex-shrink flex-basic 設定 1 1 auto
+>>>ch20_14.html
+
+20-11 設定留白的方式 justify-content:flex-start | flex-end | center | space-between | space-around | initial | inherit;
+
+flex-start | 預設 版面區塊物件在前面 留白在後面
+flex-end | 版面區塊物件在後面 留白在前面
+center | 版面區塊物件在中間 留白在兩邊
+space-between | 第一個版面區塊物件放在彈性容器開始端，最後一個版面區塊物件放在彈性容器末端，剩下的版面區塊平均分配留白
+space-around | 留白平均分配在版面區塊間，但開頭跟末端的留白是其他的一半
+>>>ch20_15.html ~ ch20_19.html
+
+20-12 垂直向留白的處理 align-items:stretch | flex-start | flex-end | center | baseline | initial | inherit;
+
+stretch | 預設 如果沒有設定 height 或 width 版面區塊物件會被延展到填滿寬度或高度的留白，有設定就依照設定，留白放在彈性容器末端
+flex-start | 版面區塊物件會集中在彈性容器開始端 留白放在彈性容器末端
+flex-end | 版面區塊物件會集中在彈性容器末端 留白放在彈性容器開始端
+center | 版面區塊物件會集中在彈性容器中央 留白放在彈性容器兩端
+baseline | 在彈性容器內用一個基準線設定個版面區塊物件的對齊方式
+>>>ch20_20.html ~ ch20_22.html 注意第十行
+
+版面區塊物件是以水平方向排版時，所有的物件高度基本上相同，有時會有不一樣的情況，這邊講解當區塊物件以水平方向排版時，垂直方向的留白處理
+
+20-13 個別版面區塊留白的處理 align-self
+應用在個別版面區塊留白的處理，當個別版面區塊有 align-self 屬性時，此屬性會覆蓋彈性容器的 align-items 屬性
+>>>ch20_23.html 1 5 >>>center 3 flex-start
+
+20-14 彈性容器有多行版面區塊時留白的處理 align-content:stretch | flex-start | flex-end | center | space-between | space-around | initial | inherit;
+
+stretch | 預設 如果沒有設定 height 或 width 留白會平均分配，有設定就依照設定，留白放在彈性容器末端
+flex-start | 版面區塊物件在前面 留白放在後面
+flex-end | 版面區塊物件在後面 留白放在前面
+space-between | 第一個版面區塊物件放在彈性容器 開始端 最後一個版面區塊物件放在彈性物件 末端 剩下版面區塊平均分配留白
+space-around | 留白平均分配在版面區塊間，但開頭和末端的留白是其他的一半
+
+>>>ch20_24.html ~ ch20_28.html 注意第12行
+
+20-15 綜合應用
+>>>ch20_29.html

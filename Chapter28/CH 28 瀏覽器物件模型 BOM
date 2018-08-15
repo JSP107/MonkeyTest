@@ -1,0 +1,201 @@
+CH28 瀏覽器物件模型 BOM
+BOM = Browserr Object Model 
+簡單的說，BOM是JS跟瀏覽器溝通的橋樑
+
+28-1 認識BOM
+最頂層的window物件指的是瀏覽器本身
+window物件下可以有document event frame history location navigator物件
+主要使用JS配合個物件的 屬性(property)和方法(method)存取和操作上述物件
+
+document物件，指的是HTML網頁文件的元素，W3C另外建立了文件物件模型(Document Object Model)，我們可以利用DOM的介面更進一步存取與操作他們
+
+28-2 window物件
+JS中所有全域物件 全域變數 函數都是windows物件成員
+
+全域變數是window物件的屬性(property)
+全域函數是window物件的方法(method)
+甚至document物件也是window物件的屬性
+
+28-2-1 有趣的程式測試
+>>>ch28_1.html Ref 9-10 
+>>>ch28_2.html Ref 10 省略window alert()函數是window物件的方法 可以省略window
+
+document物件也是window物件
+所以document.getElemenById(id).innerHTML = window.document.getElementById(id).innerHTML>>>ch28_3.html
+
+28-2-2 window物件的屬性
+28-2-2-1 獲得瀏覽器的寬度與高度
+window.innerHeight - 高度 單位是pixeis(px)
+window.innerWidth - 寬度 單位是pixeis(px)
+上述屬性可省略 window 節省輸入時間 不熟練無法立即融入變數究竟是window物件的屬性 還是一般變數
+>>>ch28_4.html
+
+28-2-2-2 瀏覽器的狀態列
+工具/工具列/狀態列
+window物件有下列屬性可以獲得瀏覽器視窗的狀態列資訊
+defaultStatus : 預設狀態列資訊
+status : 狀態列資訊
+>>>ch28_5.html
+
+28-2-2-3 window物件的屬性
+closed : 視窗是否關閉 true 表示是 false 表示否
+document : document 物件
+history : history 物件
+length : 視窗的框架數目
+location : location 物件
+name : 視窗名稱
+navigator : navigator 物件
+opener : 這個視窗的開啟者
+pageXOffset : 文件目前視窗距離顯示區左上角的x位置
+pageYOffset : 文件目前視窗距離顯示區左上角的y位置
+parent : 指向父視窗
+self : 指向window物件本身
+top : 指向最上層視窗
+screen : screen物件
+screenX : 視窗左上角距離螢幕左上角的x軸距離
+screenY : 視窗左上角距離螢幕左上角的y軸距離
+
+28-2-3 window 物件的方法
+28-2-3-1 計時器設定
+window物件有下列可以執行計時
+idTime = setTimeout(function, milliseconds);
+
+idTime 是此計時器的傳回參數，可由此關閉此計時器
+function 計時到達時，所執行的函數
+milliseconds 千分之一秒
+下列是關閉上述計時器的方法
+clearTimeout(idTime) //關閉idTime計時器
+>>>ch28_6.html 計時器設計 視窗狀態列會顯示 計時中 或 計時結束 每一次計時時間是3秒
+第八行使用了 confirm()方法
+此方法執行時會產生訊息，按確定鈕會傳回true 按取消鈕會傳回false
+
+window物件另一組常用的計時方法是
+
+idTime = setInterval(function, milliseconds);
+
+上述參數意義如下
+function 每隔特定時間的週期，會執行此函數
+milliseconds 單位是千分之一秒
+idTime 執行setInterval 的傳回值 可用此關閉計時器
+clearInterval(idTime) 函數則可以關閉idTime計時器
+>>>ch28_7.html setInterval() 跟 clearINterval()應用 
+
+28-2-3-2 open() 和 close()
+open() 可以開新視窗
+winID = window.open(URL, name, specs, replace);
+
+URL 選項 可以設定與開啟網頁文件的URL 如果不指定 則開啟的視窗是空白頁(blank)
+
+name 可設定target屬性 可能值如下：
+	_self：在目前的瀏覽頁面下顯示，這是系統預設
+	_blank：在現成的瀏覽器下新增一個瀏覽頁面
+	_parent：如果目前的頁面有父層級，在父層級頁面顯示
+	_top：在目前瀏覽器的最頂端顯示
+	name：視窗的名稱，可以新增一個瀏覽器視窗
+
+specs(所開啟的視窗特色)可以有下列值
+	channelmode : 值可以是 yes | no | 1 | 0 ，是否用劇院模式開啟，預設為否
+	directory : 值可以是 yes | no | 1 | 0 ，是否增加目錄按鈕，預設是yes IE有支援
+	fullscreen : 值可以是 yes | no | 1 | 0 ，是否以全螢幕開啟，預設是否 IE有支援
+	height : 視窗高度，最小值是100px，單位是px
+	left : 視窗的x軸座標，必須是正值，單位是px
+	location : 值可以是 yes | no | 1 | 0 ，是否顯示網址欄，預設是yes 
+	menubar : 值可以是 yes | no | 1 | 0 ，是否顯示功能表
+	resizable : 值可以是 yes | no | 1 | 0 ，是否可更改視窗大小
+	scrollbars : 值可以是 yes | no | 1 | 0 ，是否顯示卷軸
+	status : 值可以是 yes | no | 1 | 0 ，是否顯示狀態列
+	titlebar : 值可以是 yes | no | 1 | 0 ，是否顯示標題列
+	toolbar : 值可以是 yes | no | 1 | 0 ，是否顯示工具欄
+	top : 視窗的y軸座標，必須是正值，單位是px
+	width : 視窗寬度，最小值是100px，單位是px
+
+replace 這是布林值 
+	true 表示替換瀏覽歷史(hirstory)的條目(entry)
+	false 表示在瀏覽歷史中建新的條目(entry)
+
+winID
+	這是開新視窗後的回傳值，可自行設定此傳回值的名稱，未來使用傳回值操作此視窗
+	close() 可以關閉視窗  winID.close();
+>>>ch28_8.html 開啟新視窗 關閉視窗的應用 所開啟的視窗是在相同瀏覽器出現 Ref 14 省略name參數 相當於_black參數效果
+>>>ch28_9.html 主要以新的視窗顯示新開視窗 Ref 14 為視窗命名
+>>>ch28_10.html Ref 14 增加顯示工具列 狀態列 可調整視窗大小 同時設定子視窗位置
+BOM模型下 父視窗和子視窗可以互動交流
+例如 父視窗將所建的子視窗關密 子視窗可傳遞訊息給父視窗，使用opener
+>>>ch28_11.html 按下run鈕 建立一個子視窗同時子視窗傳遞資訊給父視窗
+
+28-2-3-3 scrollBy() 和 scrollTo()
+scrollBy() 方法是設定捲動捲軸的數量 單位是pixels
+window.scrollBy(xnum, ynum)
+xnum : x軸的捲動量，正值是往右捲動，負值是往左捲動
+ynum : y軸的捲動量，正值是往下捲動，負值是往上捲動
+
+scrollTo() 方法是設定捲動捲軸的位置
+window.scrollTo(xpos, ypos)
+xpos : 捲到x軸位置
+ypos : 捲到y軸位置
+
+>>>ch28_12.html Ref 19 20
+
+28-2-3-4 window 物件的方法
+blur()：移除該視窗的焦點(focus)
+createPopup()：建立一個彈出視窗
+focus()：為該視窗取得焦點(focus)
+moveBy(x,y)：以(x,y)相對位置移動視窗
+moveTo(x,y)：視窗移動到相對螢幕左上角的絕對位置(x,y)
+resizeBy(x,y)：調整視窗大小，變化量水平軸是x，垂直軸是y，單位是px
+resizeTo(x,y)：將視窗調整至水平軸是x，垂直軸是y，單位是px
+
+28-3 screen物件：主要是包含使用者的螢幕資訊，包含下列屬性
+screen.height：螢幕高度，單位是pixel
+screen.width：螢幕寬度，單位是pixel
+screen.avaiHeight：螢幕可用高度，不包含螢幕下方的工作列，單位是pixel
+screen.avaiWidth：螢幕可用寬度，不包含螢幕左方的工作列，單位是pixel
+screen.colorDepth：色彩深度，列出每個像素使用多少位元儲存，單位是pixel
+screen.pixelDepth：意義同screen.colorDepth
+>>>ch28_13.html 列出螢幕資訊
+
+28-4 navigator物件：主要可以獲取使用者的瀏覽器資訊，這是只能讀取的資訊，下列是此物件的屬性內容
+appCodeName：瀏覽器的程式碼名稱，例如 Moaillq
+appMinorVersion：瀏覽器次版本的版次
+appName：瀏覽器名稱
+appVersion：瀏覽器的主板次
+browerLanguage：瀏覽器所用語言
+cookieEnabled：瀏覽器是否使用cookie功能，true表示有，false表示否
+cpuClass：傳回cpu類型
+onLine：傳回目前瀏覽器是否有連線，true表示有，false表示否
+platform：傳回瀏覽器的作業系統平台
+systemLanguage：傳回作業系統目前的語系
+userAgent：傳回HTTP Request中 user-agent的值
+userLanguage：傳回瀏覽器作業系統所用語言
+>>>ch28_14.html 列出目前使用瀏覽器的資訊。不一定完全正確，參考就好
+
+28-5 history物件：包含瀏覽器的瀏覽紀錄，此物件只有一個屬性
+length：紀錄瀏覽次數的筆數
+此物件有下列方法可用
+	back()：回到上一頁
+	forword()：跳到下一頁
+	go(n)：n是正值則跳到下n頁，n是負值則跳到上n頁
+>>>ch28_15.html 
+
+28-6 location物件：主要是列出目前瀏覽網頁的URL資訊，以下是此物件的屬性
+hash：網址中 "#" 符號後面的部分
+host：網址的主機名稱與通訊埠
+hostname：網址的主機名稱
+href：完整的URL字串
+pathname：網址的檔案名稱與路徑
+port：URL網址的通訊埠
+search：傳回URL網址？符號後面的資訊
+此物件有下列方法可用
+	assign(URL)：載入參數URL的網頁
+	reload()：重新載入目前開啟的網頁
+	replace(URL)：載入URL的網頁，同時用這個網頁取代目前網頁在history的紀錄，相當於屬性href設為目前參數URL
+>>>ch28_16.html 列出location屬性值 尚未真正放在網頁內，有些屬性值是空白
+				將HTML檔案放在Internet上的執行結果，host hostName有資料 port如果是預設值 80 443 就不會有回傳值
+>>>ch28_17.html 列出location屬性值，執行時按下New Page鈕會載入ch28_16.html檔案 Ref 20 21 24
+時間系列指令如下
+var nowTime = new Date();
+var hh = nowTime.getHours();
+var mm = nowTime.getMinutes();
+var ss = nowTime.getSeconds();
+
+

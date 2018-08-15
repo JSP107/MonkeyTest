@@ -1,0 +1,203 @@
+CH25 JavaScript基礎知識
+歷史 先驅公司Netscape開發 現在已成為HTML設計網頁最重要的腳本(script)語言了
+HTML 定義網頁內容
+CSS 定義網頁編排
+JavaScript 用程式定義網頁行為
+
+25-1 JavaScript的功能
+可執行以下功能
+1. 更改HTML元素內容
+2. 更改HTML元素屬性內容
+3. 更改CSS屬性內容
+4. 隱藏或顯示HTML元素
+
+25-2 JavaScript的輸出
+從做中學
+
+Ａ 使用windows.alert()函數：10-3節已有說明，執行時會出現對話方塊
+
+Ｂ 存取HTML元素內容：觀念是建立一個空的HTML元素，然後將程式執行結果寫入這個空的HTML元素內
+document.getElementById(id).innerHTML
+
+========拆解如下=============
+document.getElementById(id) 存取HTML元素的方法，其中id是定義HTML元素識別
+innerHTML  則是元素內容，可在此設定HTML的內容，或是將程式執行結果放在此
+
+Ｃ 使用document.write()函數：將要輸出的資料寫在此函數內
+
+
+25-3 撰寫JavaScript的位置
+10-3節說明 JavaScript 要放在<script>元素內，一份HTML允許多個<script> 然後<script>可用在<head> 或 <body> 內，同時放在<head>和<body>也可以
+
+25-3-1 將JavaScript 寫在<head>元素內
+
+<button type="value">...</button> 建立一個通用按鈕
+
+type 可以是下列值
+submit 預設 傳送按鈕
+reset 重設按鈕
+utton 通用按鈕
+程式設計時可以將元素內容設定為 按鈕名稱
+>>>ch25_1.html Ref 14 8 
+
+25-3-2 將JavaScript 寫在<body>元素內
+>>>ch25_2.html
+
+25-3-3 以外部檔案方式，撰寫JavaScript
+優點： 
+HTML和JavaScript 皆是容易閱讀，同時未來也容易維護
+JavaScript 檔案存入高速記憶體(cache)，可以增加網頁下載速度
+
+JavaScript 以外部檔案存在時，副檔名是"js"，在HTML內的<script>呼叫獨立的JavaScript檔案方式如下
+<script src="URL">...</script>
+>>>ch25_3.html Ref 10 行
+
+25-3-4 存取HTML內容輸出實例
+25-2節，可以利用存取HTML元素內容獲得輸出結果
+>>>ch25_4.html Ref 9-11
+
+25-3-5 document.write()輸出的實例
+一般只作為測試程式輸出使用，因為當網頁下載完成後，使用此方法會將先前的網頁內容刪除
+>>>ch25_5.html ch25_6.html
+
+25-4 JavaScript基本語法
+
+使用等號 = 訂定值			x=5 
+忽略空白字元				x=5 x = 5 x= 5 x =5 意義皆相同
+使用var宣告變數			var x; var x=5;
+每道敘述分號 ; 結尾		x=5; x+y=1;
+程式註解方式				使用 // 後面同行資料皆註解 或 /* */ 之間多行註解
+字串使用單引號或雙引號刮起來	x="Pig" 與 x='Pig' 意義相同
+>>>ch25_7.html ch25_8.html
+
+25-5 變數宣告
+JavaScript 允許變數使用前不用宣告，不建議，最好在使用前用var宣告變數 
+因為JS是動態型別的程式語言，宣告變數時不用宣告變數的資料型別，可以由程式內容自動判斷
+
+變數命名規則
+開頭要是英文字母或_(底線)或$，建議英文
+英文大小寫是敏感的，視為不同變數名稱
+保留字不可當作變數名稱
+
+一行宣告多個變數，彼此用逗號隔開
+>>>ch25_9.html Ref 12 行
+
+25-6 資料型態
+JS主要功能不是執行數學運算，對於資料的宣告不是很強烈要求，甚至運算過程中所宣告的資料是可以轉換型態
+
+25-6-1 數值 number
+所有數值資料都是雙倍精度浮點數(double格式)，系統以64位元儲存
+JS接受 8進位表示方法 數值是0開始 和 16進位 數值是0x開始
+>>>ch25_10.html Ref 15 16 
+<br> 分行輸出
+
+25-6-2 字串 string
+單/雙引號內的字母 數字 或句子皆可稱為 字串
+/' 顯示'
+/" 顯示"
+// 顯示/
+跳脫字元(escape character)
+/b 代表Backspace
+/f 代表換行 Form Feed
+/n 代表Line Feed
+/t 代表 Tab
+/r 代表 Carriage Return
+>>>ch25_11.html
+
+25-6-3 物件 object
+JS的物件宣告要用大括號 {...}，物件屬性要用冒號:隔開屬性與屬性值，當物件同時有多個屬性，彼此用逗號,隔開
+var student = { firstName:"peter", lastName:"Huang", id:1234};
+>>>ch25_12.html Ref 11-15 宣告 16-17 輸出
+存取物件方式 student.firstName 或 student["firstName"];
+>>>ch25_12_1.html
+
+25-6-4 綜合應用
+JS允許數值資料與字串相加，結果會變成一個字串
+>>>ch25_13.html
+
+25-7 運算子
+舉例 x+y
+通常將運算的符號稱 運算子(operator) + 運算的元素稱運算元(operand) x y 
+
+25-7-1 算術運算子
+加法 + 減法 - 乘法 * 除法 / 求餘數 % 
+>>>ch25_14.html
+
+25-7-2 遞增或遞減運算子
+遞增++ 遞減-- 放在運算元的左邊或右邊
+放在 左邊 運算元先執行(遞增或遞減)運算完成在執行原先的敘述運算>>>ch25_15.html
+放在 右邊 運算元先執行敘述運算，完成後在執行原先的(遞增或遞減)運算>>>ch25_16.html
+
+25-7-3 指派運算子
++= a+=b a=a+b
+-= a-=b a=a-b
+*= a*=b a=a*b
+/= a/=b a=a/b
+%= a%=b a=a%/b
+>>>ch25_17.html
+
+25-8 布林值 比較運算與邏輯運算
+25-8-1 布林值(boolean)的資料只有兩種 true false 轉換成數值資料 true=1 false=0
+若數值資料轉成布林值 非0資料會被轉成true 0會轉成false
+>>>ch25_18.html
+
+25-8-2 比較運算子 結果為真回傳true 反之回傳false
+> < >= <= == ===等於且相同型別 != !==值不等於或不同型別
+>>>ch25_19.html ch25_20.html
+
+25-8-3 邏輯運算子
+JS有三個
+第一個 && 相當於and運算
+a 	 	b 		a&&b
+false 	false	false
+false	true	false
+true	false	false
+true	true	true
+第二個 || 相當於or運算
+a 	 	b 		a&&b
+false 	false	false
+false	true	true
+true	false	true
+true	true	true
+第三個 ! 相當於not運算 如果是true回傳false 反之
+>>>ch25_21.html ~ ch25_23.html
+
+25-9 位元運算子 針對位元執行運算
+符號	意義 		運算式	2進位意義 	結果
+&	相當於and 	5&1		0101&0001	0001
+|	相當於or 		5|1		0101|0001	0101
+^	相當於xor 	5^1		0101^0001	0100
+~	相當於not 	~5		~0101		1010
+<<	位元左移		5<<1	0101<<1		1010
+>>	位元右移		5>>1	0101>>1		0010
+>>>	位元無號位移	5>>>1	0101>>>1	0010
+
+>>>ch25_24.html
+上述~a 表面上是0101的轉換，其實在JS系統裡面轉換如下
+000000000000000000000000000000101(5)
+經過~5得到
+11111111111111111111111111111010(-6)
+在25-7-3節指派運算子觀念可應用在此節的位元運算子
+運算子 	實例	  	說明
+&=		a&=b 	a=a&b
+|=		a|=b 	a=a|b
+^= 		a^=b 	a=a^b
+<<= 	a<<=b 	a=a<<b
+>>= 	a>>=b 	a=a>>b
+>>>= 	a>>>=b 	a=a>>>b
+
+25-10 運算子優先順序
+x=a+b*c 先乘除後加減
+JS運算子執行優先順序 由上到下
+運算子 			類型說明
+() 				括號
+() new 			函數呼叫 建立物件
+++ -- ! 		遞增 遞減 not
+* / % ** 		乘 除 餘數 指數
++ - 			加 減
+<< >> >>>		位元左移 位元右移 無符號右移
+== === != !==	比較運算子的等於或不等於(含型別)
+&& 				邏輯運算子 and
+|| 				邏輯運算子 or
+= += ...>= >>=	所有指派運算子
+

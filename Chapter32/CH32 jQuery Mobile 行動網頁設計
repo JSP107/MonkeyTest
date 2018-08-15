@@ -1,0 +1,257 @@
+CH32 jQuery Mobile 行動網頁設計
+行動裝置跨平台網頁的系統
+過去在Android或Blackberry上使用Java，iOS上使用Objective C，Window Phone 上用C# 和.net等
+
+32-1 安裝 Opera Mobile Classic Emulator
+使用手機或平板測試或安裝模擬器
+
+32-2 我的第一份jQuery Mobile網頁
+jQuery是JS的函數庫，縮短開發時間，須先引用三份資料
+1. 與jQuery Mobile 相關的CSS樣式表 "jquery.mobile-1.4.5.css" //Version x.x.x 會更動
+2. 與jQuery 有關的JavaScript函式庫 "jquery.js"
+3. 與jQuery Modile 有關的JavaScript函式庫 "jquery.mobile-1.4.5.js"
+
+取得方法有兩種
+一 官網下載後，將檔案放在與程式相同的專案資料夾，此時<head>元素應包含
+	<head>
+		<meta name="viewport" content="width-device-width, initial-scale=1">
+		<link rel="stylesheet" href="jquery.mobile-1.4.5.css">
+		<script src="jquery.js"></script>
+		<script src="jquery.mobile-1.4.5.js"></script>
+	</head>
+
+二 到jQuery Mobile 的https://jquery.com/download/ 尋找Copy and paste that tag into your HTML file.
+將其拷貝到每一份HTML檔案，放在<head>和</head>標籤內即可 “推薦”
+>>>ch32_1.html 
+
+32-3 jQuery的基本網頁架構
+由一個或多個頁面(page)所組成，每一個頁面基本架構由頁首(header) 內容(content) 頁尾(footer)組成
+>>>ch32_2.html Ref 12 ~ 23
+
+可將data-role 想成角色，常看到的data-role設定
+頁首(header) 安置在瀏覽器上方，背景灰色長條，也可視為工具欄(toolbar)，這區一般放置標題或搜尋按鈕
+頁面內容(content) 可以將HTML所學的<h1><p><img><ul><li>等放在此區
+頁面內容(main) 如果有許多主題內容，也可先定義內容 再區分次內容可以將HTML所學的<h1><p><img><ul><li>等放在此區
+頁尾(footer) 安置在瀏覽器下方，背景灰色長條
+>>>ch32_3.html Ref 20 將頁尾固定在頁面下方
+
+32-4 超連結功能 
+設計二份頁面很容易 只要重新設定，在data-role為page的<div>內增加頁面識別id定義，有了後可在頁面間切換
+>>>ch32_4.html Ref 13 27. 定義id Ref 20 34 超連結的語法
+
+32-5 對話框設計
+>>>ch32_5.html Ref 13
+若想要設計對話框可以在定義頁面的<div>內增加下列屬性設定
+data-dialog = "true" Ref 27
+至於對話框要切換回頁面方式可參考前一節
+data-title屬性 設定網址區上方的標題
+
+32-6 頁面的切換
+可以用下列data-transition屬性設定
+	fade：預設 頁面淡化到下一頁
+	flip：從後到前翻轉
+	flow：流動方式，這一頁離開下一頁進入
+	pop：彈出的方式
+	slide：從右到左滑入
+	slidefade：從右到左滑入同時有淡化效果
+	slidedown：從上往下滑入
+	turn：轉到下一頁
+	none：沒有特效
+如果希望反方向切換頁面，可增加下列設定
+data-direction="reverse"
+>>>ch32_6.html
+
+32-7 建立按鈕
+32-7-1 使用<input>元素建立按鈕
+<input type="button" value="NameofButton">
+>>>ch32_7.html
+
+32-7-2 使用<button>元素
+使用<button>元素，同時將class設定為 ui-btn
+>>>ch32_8.html Ref 18
+
+32-7-3 使用<a>元素
+超連結屬性
+>>>ch32_9.html Ref 18
+
+32-7-4 按鈕圖示
+ui-icon-arrow-l		ui-icon-arrow-r
+ui-icon-info		ui-icon-delete
+ui-icon-back		ui-icon-audio
+ui-icon-lock		ui-icon-search
+ui-icon-alert		ui-icon-grid
+ui-icon-home
+
+32-7-5 設定按鈕圖示的位置
+ui-btn-icon 類別設定圖示位置在上下左右(top bottom left right)，需要留意 如果使用 <a> 元素建立按鈕時，當選定圖示後，一定要設定圖示位置，否則不會顯示圖示
+>>>ch32_10.html
+
+32-7-6 更多圖示設定
+
+圖示設定
+	ui-shadow：圖示增加陰影
+	ui-btn-icon-notext：隱藏圖示文字
+	ui-alt-icon：圖示是黑色
+	ui-nodisc-icon：不含外框
+>>>ch32_11.html
+
+按鈕設定
+	ui-btn-inline：按鈕可以只有包含他的內容，不會佔據整行，在此情況按鈕可以相鄰
+	ui-corner-all：為按鈕加圓框
+>>>ch32_12.html
+
+
+32-8 彈出框的設計
+Popups和對話框有一些類似，皆會彈出顯示一些文字
+
+<a href="#xxx" data-rel="popup" class="...">	<!--超連結設計-->
+<div data-rel="popup" id="xxx">.  				<!--Popups設計-->
+>>>ch32_13.html. 按一下深度學習 出現彈出框
+>>>ch32_14.html. 增加彈出框的內間距padding Ref 20 class=ui-content
+
+32-9 工具列
+一般放在頁首區或頁尾區
+32-9-1 頁首區 有頁面標題 還能再放幾個工具鈕 例如home search
+>>>ch32_15.html
+
+32-9-2 頁尾區
+>>>ch32_16.html
+>>>ch32_17.html  利用CSS樣式表 將頁尾區的功能鈕置中對齊 Ref 23
+
+32-10 導覽列
+特色是包含一系列的超連結，然後水平配置，一般在頁首或頁尾
+宣告導覽列方式是在<div>元素內宣告data-role="navbar"
+導覽列內的超連結會自動轉為按鈕，同時按鈕會均分成兩行顯示導覽列
+>>>ch32_18.html
+>>>ch32_19.html
+>>>ch32_20.html
+
+32-11 面板Panel
+主要是增加額外顯示空間，執行時正常面板會由左向右滑動，然後看到下一層的區塊，這就是Panel 
+使用前須先宣告
+
+<div date-role="Panel" id="xxx">
+	面板內容
+</div>
+>>>ch32_21.html
+設計面板可以用下列屬性設定
+	data-display="reveal"：預設 面板在下一層，頁面滑動就會顯示
+	data-display="overlay"：面板內容會覆蓋在上方頁面
+	data-display="push"：面板和頁面同時變化
+>>>ch32_22.html
+>>>ch32_23.html
+面板從右邊開啟 data-position="right" Ref 16
+
+32-12 可折疊區塊
+32-12-1 基本可折疊區塊。>>>ch32_24.html
+宣告建立
+<div data-role="Panel" id="xxx">
+	<h1>xxx</h1> 			標題
+	<p>yyy</p>				被展開內容
+</div>
+
+32-12-2 巢狀可折疊區塊 >>>ch32_25.html
+<div data-role="Panel" id="xxx">
+	<h1>xxx</h1> 						標題
+	<p>yyy</p>							被展開內容
+	<div data-role="Panel" id="zzz">  	第二層
+		<h1>xxx</h1> 						第二層標題
+		<p>yyy</p>							第二層被展開內容
+	</div>
+</div>
+
+32-13 建立表格
+jQuery表格規劃也是RWD方式，對於手機平板寬度，自行調配表格的顯示方式
+第一種 
+32-13-1 重新排列(reflow)
+基本上表格資料會水平排列，當資料欄數太多造成寬度在最小範圍值，資料將被垂直處理，建立表格的宣告方式
+<table date-role="table" class="ui-responsive">
+表格資料 參考HTML方式建立表格
+</table>
+jQuery Mobile不支援 rowspan 和 colspan
+>>>ch32_26.html
+
+第二種 
+32-13-2 欄位切換(column toggle)
+<table date-role="table" class="ui-responsive" data-mode="columntoggle">
+在預設情況，如果螢幕寬度不足，會從右邊欄位開始隱藏，不過可以在<th>元素內使用 data-priority屬性設定顯示的優先順序，值從1-6 (最先1 - 最後6)
+
+<th> 一定顯示 </th>					沒設定data-priority屬性，一定要顯示
+<th data-priority="1">優先高</th>
+<th data-priority="3">優先中</th>
+<th data-priority="6">優先低</th>
+>>>ch32_27.html
+
+>>>ch32_28.html 將Columns鈕改成可切換顯示欄位鈕
+
+32-13-3 將樣表應用在表格
+在<table>元素class屬性增加 ui-shadow 可在建立表格含陰影的框
+>>>ch32_29.html 為表格建立陰影
+>>>ch32_30.html 為表格每一行加上淺灰色，這時可使用樣式表
+>>>ch32_31.html 設定偶數欄位的背景色是藍色
+
+32-14 清單顯示
+使用<ul> <li> 不過須在這兩個元素內增加 data-role="listview"
+另外jQuery Mobile 自動為表單項目項目設為以 按鈕方式 顯示
+>>>ch32_32.html 清單顯示的應用
+在設計時使用 data-inset="true" 為項目資料增加圓框和部分內間距(padding)
+>>>ch32_33.html Ref 15
+>>>ch32_34.html Ref 16 20 
+當項目清單資料很多時，在<li>元素內加上 data-role="list-divider" 為項目分類
+
+32-15 清單符號
+32-15-1 預設清單符號
+項目清單右邊有向右箭頭(right arrow)符號，可以使用data-icon屬性設定其他符號，如果將data-icon屬性設為false，表示沒有符號 Ref 17
+>>>ch32_35.html 清單符號的應用
+
+32-15-2 自設清單圖示
+自己插入icon式的圖片，方法是在<img>元素內增加下列設定
+<img src="xxx" class="ui-li-icon">
+>>>ch32_36.html Ref 16
+
+32-15-3 清單的縮圖
+>>>ch32_37.html 項目清單旁增加情單的實例 Ref 11-25
+
+32-15-4 說圖加上文字註解
+>>>ch32_38.html. 在縮圖右邊加上文字
+
+32-15-5 分割清單按鈕
+如果<li>元素有兩個<a>元素時，jQuery Mobile 會自動分割清單按鈕，同時右邊的按鈕有向右的箭頭圖示，如果第二個<a>內有文字，當滑鼠移過去時會列出此文字
+>>>ch32_39.html 分割清單按鈕的應用
+
+32-16 製作輸入表單
+是用<form>元素，此外各元件的類型須由<input>元素的type屬性設定
+
+32-16-1 <label>
+常用在表單元件的欄位名稱，所以一般很少單獨存在，使用方式如下
+<label for="名稱" >欄位名稱 </label>
+上述for屬性常和元件的id屬性有相同的名稱，這樣才能搭配
+
+32-16-2 text屬性 用於文字輸入
+>>>ch32_40.html 輸入姓名的應用
+>>>ch32_41.html 增加預設文字 placeholder屬性值就是預設文字 Ref 16
+>>>ch32_42.html 增加 data-clear-btn="true" 屬性 會在右邊增加刪除圖示 Ref 16
+
+32-16-3 功能紐屬性 與HTML相同
+<input type="submit" value="xxx">
+<input type="reset" value="xxx">
+<input type="button" value="xxx">
+>>>ch32_43.html 功能鈕的應用
+>>>ch32_44.html 功能鈕調整同時增加圖示
+
+32-16-4 radio屬性 選項鈕屬性 在此使用者可以有一個選項 規格與HTML相同
+>>>ch32_45.html  設計選項鈕的應用
+<fieldset>將按鈕組織起來，同時也使用HTML介紹過的<legend>建立欄位文字
+
+32-16-5 checkbox屬性 製作核取方塊，使用者可以選擇多個選項
+>>>ch32_46.html. checkbox應用
+
+32-16-6 select 屬性 建立下拉式選單，在使用時需使用<option>元素建立選單項目
+>>>ch32_47.html 建立下拉式選單的應用
+>>>ch32_48.html 增加洲別的分類 如果選單項目有許多，可以使用<outgroup>分類
+
+32-16-7 range屬性 此屬性允許用拖曳方式輸入數值
+>>>ch32_49.html 拖曳了解數字變化，此程式最小值設定0 最大值100
+
+32-16-8 On/Off 切換設計 需要使用checkbox屬性．然後加上 data-role="flipswitch"
+>>>ch32_50.html On/Off 切換設計應用 Ref 18 19

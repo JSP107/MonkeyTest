@@ -1,0 +1,60 @@
+CH33 將網頁轉成App應用程式
+PhoneGap是一個開放原始碼的行動裝置開發框架，當使用HTML CSS JavaScript開發應用程式時，可用來將程式轉換成App應用程式
+此軟體原開發商是 Nirobi 後來被Adobe收購
+
+33-1 準備HTML檔案
+筆者使用ch30_34.html的時鐘程式
+使用前要將檔名改成 index.html
+
+33-2 準備config.xml組態檔
+組態檔基本規範也是W3C所制定，更多資訊可參考docs.phonegap.com網頁
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<widget xmlns 		= "http://www.w3c.org/ns/widgets"
+		xmlns:gap 	= "http://phonegap.com/ns/1.0"
+		id 			= "DeepStone"
+		versionCode = "10"
+		version 	= "1.0.0" >
+<!-- versionCode is optional and Android only -->
+
+<name>DeepStone</name>
+
+<description>
+	HTML5+CSS3
+</description>
+
+<author href="https://www.deepstone.com.tw" email="cshung@deepstone.com.tw">
+	洪錦魁
+</author>
+
+</widget>
+
+＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+關鍵輸入
+id = "DeepStone" 是App的識別碼，筆者設定DeepStone W3C建議這裡使用反向域名 例如tw.com.deepstone，筆者使用簡化方式
+
+versionCode = "10"		版本編號
+version 	= "1.0.0" 	次編號
+筆者使用預設
+
+<name>DeepStone</name> 是App的名稱，此例筆者使用 DeepStone 成功建立App會看到的名稱
+
+<description>
+	HTML5+CSS3 --->App的描述
+</description>
+
+</author>
+			---->加上指令 <icon src="icon.jpg" /> 有自己的App圖示 注意是XML語法
+</widget>
+
+33-3 壓縮網頁與組態檔
+將網頁的HTML檔案與config.xml組態檔案壓縮，如果有圖檔也必須一起壓縮成zip檔案
+
+33-4 建立App應用程式
+連線到 https://phonegap.com/
+Package your app in the cloud  註冊Adobe ID Free
+上傳zip檔案 Ready to build
+遵循指示下載 安裝 可得到上方所建的App 開啟後得到結果
+
+33-5 重新上傳檔案
+免費只能建立一個App 未來想更新App 請按有條碼視窗畫面那一頁左下方的 Update code 然後重新上傳zip檔案

@@ -1,0 +1,45 @@
+CH21 動畫設計 漸變效果
+過去使用flash或javascript
+本章動畫可用以下方式完成
+1. 設定動畫前的屬性值
+2. 設定動畫時間，也就是漸變效果時間
+3. 設定動畫後的屬性值
+觸發動畫的機制，通常是滑鼠游標移至特定元素時執行
+
+21-1 設定漸變效果時間 transtion-duration: time | initial | inherit;
+
+time 可設定秒(s)或毫秒(ms)，如果有多個屬性要分開執行漸變效果，用逗號 , 隔開
+
+21-2 漸變效果屬性 transition-property: none | all | property | initial | inherit;
+
+none 沒有屬性會產生漸變效果
+all 有漸變效果 所有屬性都有
+property 設定有漸變效果的屬性名稱，多個屬性，屬性間加上逗號
+>>>ch21_1.html ~ ch21_2.html
+
+21-3 漸變時間的延遲 transition-delay: time | initial | inherit;
+
+time 可設定秒(s)或毫秒(ms)，設定漸變效果時，可訂定延遲時間
+>>>ch21_3.html Ref 12行
+
+21-4 設計漸變速度 transtion-timing-function: ease | ease-in | ease-out | ease-in-out | linear | step-start | step-end | steps(int,start | end) | cubic-bezier(n,n,n,n) | initial | inherit;
+
+ease | 預設 開始是慢 中途加速 中途減速 結束是慢 相同於cubic-bezier(0.25,0.1,0.25,1)
+ease-in | 開始是慢 然後加速 相同於cubic-bezier(0.42,0,1,1) 貝茲曲線
+ease-out | 開始是快 結束是慢 相同於cubic-bezier(0,0.58,1) 
+ease-in-out | 開始是慢 逐漸加速 減速至結束 相同於cubic-bezier(0.42,0,0.58,1)
+linear | 用相同速度 相同於cubic-bezier(0,0,1,1)
+step-start | 與設定stpes (1,start)相同
+step-end | 與設定steps (1,end)相同
+steps(int,start|end) | 第一個參數是 次數 設定變化的量次 執行平均分割 第二個參數是觸發的時機 start代表在開始觸發或是end代表在終點觸發 如果省略第二個參數，代表是end
+cubic-bezier(x1,y1,x2,y2) | 貝茲函數代表0-1之間變化的數，其中x軸式變化所需時間 y軸是變化的比例 主要是用在設定更細化的變化時使用
+>>>ch21_4.html ~ ch21_5.html Ref 13 14行
+
+21-5 漸變效果簡易表示法 transition:property duration timing-function delay | initial | inherit;
+順序不拘 只要空一格即可
+>>>ch21_6.html Ref 12行 結果同ch21_4
+
+21-6 綜合應用
+本節舉一個實例，元素獲得焦點即可觸發
+>>>ch21_7.html Ref 11
+
